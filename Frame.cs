@@ -72,7 +72,7 @@ public partial class Frame : Node2D
         var sav = SaveUtil.GetSaveFile(@"C:\Users\manga\Documents\PKHeX (25.08.30)a\TEST_SAVE.sav")
                   ?? throw new InvalidOperationException("Type de sauvegarde non reconnu.");
 
-        int max = 1;
+        int max = 0;
         for (int i = 0; i < max && i < sav.PartyCount; i++)
         {
             var pkm = sav.PartyData[i];

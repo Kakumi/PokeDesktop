@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpoii0vxe4hh2"]
+
+[ext_resource type="Script" uid="uid://x4oesa2ywfif" path="res://scenes/ui/PokemonWindow.cs" id="1_35qis"]
+[ext_resource type="PackedScene" uid="uid://blu338ledmcyh" path="res://scenes/characters/pokemon_frame.tscn" id="1_ckhyg"]
+
+[node name="PokemonWindow" type="Window"]
+transparent_bg = true
+oversampling_override = 1.0
+size = Vector2i(100, 200)
+unresizable = true
+borderless = true
+always_on_top = true
+transparent = true
+popup_window = true
+minimize_disabled = true
+maximize_disabled = true
+script = ExtResource("1_35qis")
+
+[node name="PokemonFrame" parent="." instance=ExtResource("1_ckhyg")]

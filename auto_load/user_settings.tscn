@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqpxc42ev0hy4"]
 
 [ext_resource type="Script" uid="uid://vh1mejbsxe23" path="res://auto_load/UserSettings.cs" id="1_ld651"]
-[ext_resource type="PackedScene" uid="uid://dhxfah7rmtkir" path="res://scenes/ui/app_menu.tscn" id="2_1bfn2"]
+[ext_resource type="PackedScene" uid="uid://cpoii0vxe4hh2" path="res://scenes/ui/pokemon_window.tscn" id="3_1bfn2"]
 
 [node name="UserSettings" type="Node"]
 script = ExtResource("1_ld651")
-AppMenu = ExtResource("2_1bfn2")
+PokemonWindow = ExtResource("3_1bfn2")
