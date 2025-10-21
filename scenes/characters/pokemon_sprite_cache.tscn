@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ern1gr833cbm"]
+
+[ext_resource type="Script" uid="uid://dh1tcjv1oboqi" path="res://scenes/characters/PokemonSpriteCache.cs" id="1_rkxpr"]
+
+[node name="PokemonSpriteCache" type="Node"]
+script = ExtResource("1_rkxpr")

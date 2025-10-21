@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvv1e8s7x8mkg"]
+
+[ext_resource type="PackedScene" uid="uid://bie524e3oxc05" path="res://scenes/movements/base_movement.tscn" id="1_b7igb"]
+[ext_resource type="Script" uid="uid://bfnt171y6mgmu" path="res://scenes/movements/Flying.cs" id="2_bsfk1"]
+
+[node name="Flying" instance=ExtResource("1_b7igb")]
+script = ExtResource("2_bsfk1")

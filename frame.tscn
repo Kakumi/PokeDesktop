@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0cchd1j5r72n"]
+
+[ext_resource type="Script" uid="uid://d17uvtnse3cps" path="res://Frame.cs" id="1_bs1d3"]
+[ext_resource type="PackedScene" uid="uid://blu338ledmcyh" path="res://scenes/characters/pokemon_frame.tscn" id="2_bs1d3"]
+[ext_resource type="Texture2D" uid="uid://bmkiab1dixpnb" path="res://icon.svg" id="3_yce45"]
+
+[node name="Frame" type="Node2D"]
+script = ExtResource("1_bs1d3")
+PokemonFrame = ExtResource("2_bs1d3")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureButton" type="TextureButton" parent="Control"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("3_yce45")
+ignore_texture_size = true
+stretch_mode = 5
