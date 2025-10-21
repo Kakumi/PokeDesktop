@@ -10,10 +10,12 @@ public partial class Frame : Node2D
     [Export] public PackedScene PokemonFrame;
 
     private bool _clickThough;
+    private Ui _ui;
 
     public override void _Ready()
     {
         _clickThough = true;
+        _ui = GetNode<Ui>("UI");
 
         SetWindow();
 
@@ -21,6 +23,19 @@ public partial class Frame : Node2D
 
         MakeFullyClickThrough_NonWindows(_clickThough);
         MakeFullyClickThrough_Windows(_clickThough);
+
+        GetViewport().GuiEmbedSubwindows = false;
+
+        //var window = new Window();
+        //AddChild(window);
+        //window.Visible = true;
+        //window.Position = new Vector2I(1500, 500);
+        //window.Title = "Salut";
+        //window.Size = new Vector2I(300, 200);
+        //window.CloseRequested += () =>
+        //{
+        //    GD.Print("close");
+        //};
     }
 
     public override void _Input(InputEvent @event)
@@ -41,6 +56,10 @@ public partial class Frame : Node2D
 
         Vector2I windowSize = new Vector2I(screenSize.X, Height);
         Vector2I windowPosition = new Vector2I(0, screenSize.Y - Height - taskbarHeight);
+        _ui.Size = windowSize;
+
+        //var region = _ui.GetRegion(windowPosition);
+        //DisplayServer.WindowSetMousePassthrough(region);
 
         DisplayServer.WindowSetSize(windowSize);
         DisplayServer.WindowSetPosition(windowPosition);
