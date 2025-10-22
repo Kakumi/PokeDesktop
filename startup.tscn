@@ -1,18 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://bf3ke7pn8rtq3"]
 
-[ext_resource type="Script" uid="uid://dkf2t3f8fysc2" path="res://scenes/ui/UI.cs" id="1_f5cxw"]
-[ext_resource type="PackedScene" uid="uid://cbrpbo48wxdcf" path="res://scenes/ui/settings_panel.tscn" id="2_f5cxw"]
-[ext_resource type="Texture2D" uid="uid://cikmjcinmng3x" path="res://assets/images/background.jpg" id="2_g5kmx"]
-[ext_resource type="Script" uid="uid://k2npfhhi1kw3" path="res://scenes/ui/SettingsPanel.cs" id="3_aac20"]
+[ext_resource type="Script" uid="uid://dkf2t3f8fysc2" path="res://Startup.cs" id="1_g014h"]
+[ext_resource type="Texture2D" uid="uid://cikmjcinmng3x" path="res://assets/images/background.jpg" id="2_jojrd"]
+[ext_resource type="PackedScene" uid="uid://cbrpbo48wxdcf" path="res://scenes/ui/settings_panel.tscn" id="3_ob02o"]
+[ext_resource type="Script" uid="uid://k2npfhhi1kw3" path="res://scenes/ui/SettingsPanel.cs" id="4_d7xot"]
 
-[node name="UI" type="Control"]
+[node name="Startup" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_f5cxw")
+script = ExtResource("1_g014h")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.21950102, 0.21950102, 0.21950102, 1)
@@ -22,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_g5kmx")
+texture = ExtResource("2_jojrd")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -35,6 +35,6 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="SettingsPanel" parent="MarginContainer" instance=ExtResource("2_f5cxw")]
+[node name="SettingsPanel" parent="MarginContainer" instance=ExtResource("3_ob02o")]
 layout_mode = 2
-script = ExtResource("3_aac20")
+script = ExtResource("4_d7xot")

@@ -1,6 +1,5 @@
 using Godot;
 using PKHeX.Core;
-using System;
 using System.Linq;
 
 public partial class PokemonInstance : VBoxContainer
@@ -14,7 +13,6 @@ public partial class PokemonInstance : VBoxContainer
     private MovementType _movementType = MovementType.None;
     private PokemonSpriteCache _spriteCache;
     private EmotionHandler _emotionHandler;
-    private Random _rng;
     private BaseMovement _movement;
 
     public override void _Ready()
@@ -25,7 +23,6 @@ public partial class PokemonInstance : VBoxContainer
 
         _spriteCache = GetNodeOrNull<PokemonSpriteCache>("PokemonSpriteCache");
         _emotionHandler = GetNodeOrNull<EmotionHandler>("EmotionHandler");
-        _rng = new Random();
 
         _spriteCache.TextureReady += _spriteCache_TextureReady;
         _spriteCache.TextureFailed += _spriteCache_TextureFailed;
@@ -39,22 +36,23 @@ public partial class PokemonInstance : VBoxContainer
     private void _spriteCache_TextureReady(Texture2D texture)
     {
         PokemonSprite.Texture = texture;
-
-        var contentSize = GetSize();
-        var spriteSize = GetSpriteSize();
-
-        //Position = new Vector2((contentSize.X - spriteSize.X) / 2, contentSize.Y - spriteSize.Y);
-
-        //SpriteAutoCrop.ApplyCrop(PokemonSprite, 0.05f, true);
     }
 
     public void Init(PKM pokemon, PokemonWindow window)
     {
         _emotionHandler.Init(pokemon);
-        _spriteCache.LoadOrDownloadTexture(pokemon, true);
+        _spriteCache.LoadOrDownloadTexture(pokemon, SettingsManager.Instance.Settings.AnimatedSprites);
 
-        string name = pokemon.IsNicknamed ? pokemon.Nickname : GameInfo.Strings.Species.ElementAt(pokemon.Species);
-        PokemonName.Text = name;
+        if (SettingsManager.Instance.Settings.ShowName)
+        {
+            string name = pokemon.IsNicknamed ? pokemon.Nickname : GameInfo.Strings.Species.ElementAt(pokemon.Species);
+            PokemonName.Text = name;
+            PokemonName.Visible = true;
+        }
+        else
+        {
+            PokemonName.Visible = false;
+        }
 
         _movementType = pokemon.GetMovementType();
 
@@ -63,18 +61,14 @@ public partial class PokemonInstance : VBoxContainer
             _movement.Free();
         }
 
-        var moveInfo = Movements.FirstOrDefault(x => x.Type == _movementType || true); //TODO TEST
+        var useSmartMove = SettingsManager.Instance.Settings.SmartMove;
+        var moveInfo = Movements.FirstOrDefault(x => x.Type == (useSmartMove ? _movementType : MovementType.Walk));
         if (moveInfo != null)
         {
-            //_movement = moveInfo.PackedScene.Instantiate<BaseMovement>();
-            //AddChild(_movement);
+            _movement = moveInfo.PackedScene.Instantiate<BaseMovement>();
+            AddChild(_movement);
 
-            //_movement.Init(pokemon, window, this);
+            _movement.Init(pokemon, window, this);
         }
-    }
-
-    public Vector2 GetSpriteSize()
-    {
-        return PokemonSprite.Texture.GetSize() * PokemonSprite.Scale;
     }
 }

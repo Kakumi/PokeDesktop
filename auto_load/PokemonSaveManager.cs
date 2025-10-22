@@ -1,7 +1,7 @@
 using Godot;
 using PKHeX.Core;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class PokemonSaveManager : Node
 {
@@ -25,18 +25,29 @@ public partial class PokemonSaveManager : Node
 
     private void Instance_SettingsChanged(Settings settings)
     {
+        foreach (var item in GetChildren().Where(x => x is PokemonWindow))
+        {
+            item.QueueFree();
+        }
+
         LoadPokemons();
     }
 
     private void LoadPokemons()
     {
-        var sav = SaveUtil.GetSaveFile(@"C:\Users\manga\Documents\PKHeX (25.08.30)a\TEST_SAVE.sav");
-        if (sav == null)
+        string path = SettingsManager.Instance.Settings.SaveFilePath;
+        if (path == null)
         {
-            throw new InvalidOperationException("TODO Invalid file.");
+            return;
         }
 
-        int max = 1;
+        var sav = SaveUtil.GetSaveFile(path);
+        if (sav == null)
+        {
+            return;
+        }
+
+        int max = SettingsManager.Instance.Settings.MaxVisible;
         for (int i = 0; i < max && i < sav.PartyCount; i++)
         {
             var pkm = sav.PartyData[i];

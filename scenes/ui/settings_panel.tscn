@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbrpbo48wxdcf"]
 
-[ext_resource type="Texture2D" uid="uid://bmkiab1dixpnb" path="res://icon.svg" id="1_dbor5"]
+[ext_resource type="Texture2D" uid="uid://8pwnkdwveml8" path="res://assets/images/folder-open-solid-full.svg" id="1_dbor5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5cxw"]
 content_margin_left = 8.0
@@ -38,7 +38,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
+[node name="Label2" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SETTINGS_SAVE_PATH"
@@ -47,20 +47,39 @@ text = "SETTINGS_SAVE_PATH"
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_f5cxw")
 
+[node name="ErrorLabel" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "SETTINGS_INVALID_SAVE_FILE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SuccessLabel" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "SETTINGS_INVALID_SAVE_FILE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="FileDialog" type="FileDialog" parent="SettingsContainer/SavePath"]
 title = "Open a File"
 file_mode = 0
 access = 2
 
-[node name="TextureRect" type="TextureRect" parent="SettingsContainer/SavePath"]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsContainer/SavePath"]
 layout_mode = 2
-texture = ExtResource("1_dbor5")
-expand_mode = 2
-stretch_mode = 5
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
-[node name="TextureButton" type="TextureButton" parent="SettingsContainer/SavePath"]
+[node name="OpenSaveFileButton" type="TextureButton" parent="SettingsContainer/SavePath/MarginContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture_normal = ExtResource("1_dbor5")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="ShowName" type="CheckButton" parent="SettingsContainer"]
@@ -82,6 +101,24 @@ text = "SETTINGS_DROP_ITEM"
 [node name="ShowEmotion" type="CheckButton" parent="SettingsContainer"]
 layout_mode = 2
 text = "SETTINGS_SHOW_EMOTION"
+
+[node name="AnimatedSprites" type="CheckButton" parent="SettingsContainer"]
+layout_mode = 2
+text = "SETTINGS_ANIMATED_SPRITES"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_MAX_VISIBLE"
+
+[node name="MaxVisible" type="SpinBox" parent="SettingsContainer/HBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 6.0
+value = 1.0
 
 [node name="SaveButton" type="Button" parent="."]
 layout_mode = 2

@@ -6,5 +6,10 @@ SETTINGS_SMART_MOVE,Pokémon move differently depending on their type,Les pokém
 SETTINGS_DROP_MONEY,Pokémon can find and add money to your save file,Les pokémons peuvent trouver et ajouter de l'argent à votre sauvegarde
 SETTINGS_DROP_ITEM,Pokémon can find and add items to your save file,Les pokémons peuvent trouver et ajouter des objets à votre sauvegarde
 SETTINGS_SHOW_EMOTION,Pokémon has emotions,Les pokémons ont des émotions
+SETTINGS_MAX_VISIBLE,Number of Pokémon visible,Nombre de pokémons visible
+SETTINGS_SAVE,Save,Sauvegarder
+SETTINGS_ANIMATED_SPRITES,Use animated sprites (Pokémon Showdown) instead of pixelart sprites,Utiliser des sprites animés (Pokémon Showdown) au lieu des sprites pixelart
+SETTINGS_INVALID_SAVE_FILE,Your save file is not supported. Please use a save from original pokémon games.,Votre fichier de sauvegarde n'est pas pris en charge. Veuillez utiliser une sauvegarde provenant des jeux Pokémon originaux.
+SETTINGS_WELCOME_SAVE_FILE,Valid save file ! Welcome {0} !,Sauvegarde valide ! Bienvenue {0} !
 LANG_fr,Français,Français
 LANG_en,English,English

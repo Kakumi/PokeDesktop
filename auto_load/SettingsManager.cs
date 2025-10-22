@@ -60,6 +60,8 @@ public partial class SettingsManager : Node
         {
             Settings = ResourceLoader.Load<Settings>(SETTINGS_PATH) ?? new Settings();
 
+            UpdateSettings();
+
             EmitSignal(SignalName.SettingsChanged, Settings);
         }
         catch (Exception e)

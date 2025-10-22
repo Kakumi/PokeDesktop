@@ -29,7 +29,10 @@ public partial class EmotionHandler : Node
         EmotionTimer.Timeout += EmotionTimer_Timeout;
         ClearTimer.Timeout += ClearTimer_Timeout;
 
-        EmotionTimer.StartNewTimer();
+        if (SettingsManager.Instance.Settings.ShowEmotion)
+        {
+            EmotionTimer.StartNewTimer();
+        }
     }
 
     public void Init(PKM pokemon)
