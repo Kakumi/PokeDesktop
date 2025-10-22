@@ -13,7 +13,6 @@ public partial class SpeechBubble2D : Node2D
     [Export] public Color BgColor = new Color(0, 0, 0, 0.6f);
     [Export] public Color BorderColor = new Color(0, 0, 0, 0.9f);
     [Export] public Vector2 Padding = new(6, 4);
-    [Export] public float Radius = 6f;
 
     public override void _Ready()
     {
@@ -22,7 +21,7 @@ public partial class SpeechBubble2D : Node2D
 
     public void SetText(string t) { Text = t; QueueRedraw(); }
 
-    public Vector2 GetRectSize()
+    public Vector2 GetTextBox()
     {
         var textSize = FileFont.GetStringSize(Text, fontSize: FontSize);
         var ascent = FileFont.GetAscent(FontSize);
@@ -34,17 +33,24 @@ public partial class SpeechBubble2D : Node2D
         );
     }
 
+    public Rect2 GetLabelRect()
+    {
+        var rectSize = GetTextBox();
+        var topLeft = new Vector2(-rectSize.X * 0.5f, -rectSize.Y) + Offset;
+
+        return new Rect2(topLeft, rectSize);
+    }
+
     public override void _Draw()
     {
         if (string.IsNullOrEmpty(Text) || FileFont == null || FontSize <= 0)
+        {
             return;
-
-        var rectSize = GetRectSize();
-        var topLeft = new Vector2(-rectSize.X * 0.5f, -rectSize.Y) + Offset;
+        }
 
         if (DrawBackground)
         {
-            var rect = new Rect2(topLeft, rectSize);
+            var rect = GetLabelRect();
             DrawRect(rect, BgColor, filled: true);
             DrawPolyline(new Vector2[] {
                 rect.Position,
@@ -58,6 +64,6 @@ public partial class SpeechBubble2D : Node2D
         var textSize = FileFont.GetStringSize(Text, fontSize: FontSize);
         var descent = FileFont.GetDescent(FontSize);
         var baseline = new Vector2(-textSize.X * 0.5f, -(descent + Padding.Y)) + Offset;
-        DrawString(FileFont, baseline, Text, HorizontalAlignment.Center, -1, FontSize, TextColor);
+        DrawString(FileFont, baseline, Text, HorizontalAlignment, -1, FontSize, TextColor);
     }
 }

@@ -15,36 +15,33 @@ public partial class BaseMovement : Node2D
     [Export] public float BobFrequency = 0f;        // fréquence du rebond (Hz)
 
     public PKM Pokemon { get; private set; }
-    public PokemonFrame PokemonFrame { get; private set; }
+    public PokemonWindow WindowToMove { get; private set; }
+    public PokemonFrame Frame { get; private set; }
 
     protected enum State { Idle, Walking }
     protected State _state = State.Idle;
     protected float _stateTimer = 0f;
 
-    protected Vector2 _startPos;
-    protected Vector2 _targetPos;
+    protected Vector2I _startPos;
+    protected Vector2I _targetPos;
     protected float _walkDuration = 1f;
     protected float _walkElapsed = 0f;
     protected float _dirSign = 1f;
-    protected float _spriteBaseY;
 
     protected readonly Random _rng = new();
 
-    public void Init(PKM pkm, PokemonFrame frame)
+    public void Init(PKM pkm, PokemonWindow window, PokemonFrame frame)
     {
         Pokemon = pkm;
-        PokemonFrame = frame;
-        _spriteBaseY = Position.Y;
+        WindowToMove = window;
+        Frame = frame;
 
         EnterIdle();
     }
 
-    public override void _Ready()
+    public int GetWinBaseY()
     {
-        if (Pokemon == null)
-        {
-            _spriteBaseY = Position.Y;
-        }
+        return WindowToMove.GetWindowDefaultPosition().Y;
     }
 
     public override void _Process(double delta)
@@ -77,7 +74,7 @@ public partial class BaseMovement : Node2D
     {
         _state = State.Idle;
         _stateTimer = RandRange(IdleMin, IdleMax);
-        Position = new Vector2(Position.X, _spriteBaseY);
+        Position = new Vector2(Position.X, GetWinBaseY());
     }
 
     private void UpdateIdle(float dt)
@@ -98,7 +95,7 @@ public partial class BaseMovement : Node2D
 
     protected float EaseInOut(float t)
     {
-        // S-curve simple
+        // S-curve
         return t * t * (3f - 2f * t);
     }
 

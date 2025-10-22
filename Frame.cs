@@ -85,7 +85,7 @@ public partial class Frame : Node2D
         var instance = PokemonFrame.Instantiate<PokemonFrame>();
         AddChild(instance);
 
-        instance.Init(pokemon);
+        //instance.Init(pokemon);
 
         return instance;
     }

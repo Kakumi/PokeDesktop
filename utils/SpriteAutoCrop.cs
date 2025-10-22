@@ -102,5 +102,45 @@ namespace PokeDesktop.utils
             pos.Y = sprite.Texture.GetSize().Y - cropRect.Size.Y;
             sprite.Position = pos;
         }
+
+        public static int GetBottomTransparentRows(Texture2D tex, float alphaThreshold = 0.05f)
+        {
+            if (tex == null) return 0;
+            var rect = ComputeOpaqueRect(tex, alphaThreshold);
+            if (rect.Size.X == 0 || rect.Size.Y == 0) return 0;
+
+            int h = tex.GetHeight();
+            int bottomTransparent = h - (rect.Position.Y + rect.Size.Y);
+            return bottomTransparent < 0 ? 0 : bottomTransparent;
+        }
+
+        public static void ApplyCrop(TextureRect tr, float alphaThreshold = 0.05f, bool alignBottom = true)
+        {
+            if (tr == null || tr.Texture == null) return;
+
+            Texture2D baseTex = tr.Texture;
+
+            Rect2I cropRect = (baseTex is AnimatedTexture at)
+                ? ComputeOpaqueRectForAnimated(at, alphaThreshold)
+                : ComputeOpaqueRect(baseTex, alphaThreshold);
+
+            if (cropRect.Size.X <= 0 || cropRect.Size.Y <= 0) return;
+
+            var atlas = new AtlasTexture
+            {
+                Atlas = baseTex,
+                Region = cropRect
+            };
+            tr.Texture = atlas;
+
+            tr.CustomMinimumSize = cropRect.Size;
+            tr.Size = cropRect.Size;
+
+            if (alignBottom)
+            {
+                int dy = GetBottomTransparentRows(baseTex, alphaThreshold);
+                tr.Position -= new Vector2(0, dy);
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@
 [node name="PokemonWindow" type="Window"]
 transparent_bg = true
 oversampling_override = 1.0
-size = Vector2i(100, 200)
+size = Vector2i(100, 30)
 unresizable = true
 borderless = true
 always_on_top = true
@@ -15,5 +15,23 @@ popup_window = true
 minimize_disabled = true
 maximize_disabled = true
 script = ExtResource("1_35qis")
+
+[node name="View" type="VBoxContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="View"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Texte"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="View"]
+layout_mode = 2
+stretch_mode = 5
 
 [node name="PokemonFrame" parent="." instance=ExtResource("1_ckhyg")]
