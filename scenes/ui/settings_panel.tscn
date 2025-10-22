@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbrpbo48wxdcf"]
+
+[ext_resource type="Texture2D" uid="uid://bmkiab1dixpnb" path="res://icon.svg" id="1_dbor5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5cxw"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+
+[node name="SettingsPanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Language" type="HBoxContainer" parent="SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/Language"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_LANGUAGE"
+
+[node name="LanguagesBox" type="OptionButton" parent="SettingsContainer/Language"]
+layout_mode = 2
+
+[node name="SavePath" type="HBoxContainer" parent="SettingsContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="SettingsContainer/SavePath"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_SAVE_PATH"
+
+[node name="Path" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_f5cxw")
+
+[node name="FileDialog" type="FileDialog" parent="SettingsContainer/SavePath"]
+title = "Open a File"
+file_mode = 0
+access = 2
+
+[node name="TextureRect" type="TextureRect" parent="SettingsContainer/SavePath"]
+layout_mode = 2
+texture = ExtResource("1_dbor5")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TextureButton" type="TextureButton" parent="SettingsContainer/SavePath"]
+layout_mode = 2
+texture_normal = ExtResource("1_dbor5")
+stretch_mode = 5
+
+[node name="ShowName" type="CheckButton" parent="SettingsContainer"]
+layout_mode = 2
+text = "SETTINGS_SHOW_NAME"
+
+[node name="SmartMove" type="CheckButton" parent="SettingsContainer"]
+layout_mode = 2
+text = "SETTINGS_SMART_MOVE"
+
+[node name="DropMoney" type="CheckButton" parent="SettingsContainer"]
+layout_mode = 2
+text = "SETTINGS_DROP_MONEY"
+
+[node name="DropItem" type="CheckButton" parent="SettingsContainer"]
+layout_mode = 2
+text = "SETTINGS_DROP_ITEM"
+
+[node name="ShowEmotion" type="CheckButton" parent="SettingsContainer"]
+layout_mode = 2
+text = "SETTINGS_SHOW_EMOTION"
+
+[node name="SaveButton" type="Button" parent="."]
+layout_mode = 2
+text = "SETTINGS_SAVE"

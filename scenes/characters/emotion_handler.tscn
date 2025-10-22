@@ -1,0 +1,22 @@
+[gd_scene load_steps=10 format=3 uid="uid://bidtguqs3wgmk"]
+
+[ext_resource type="Script" uid="uid://877s5oc3bt6" path="res://scenes/characters/EmotionHandler.cs" id="1_4nbdb"]
+[ext_resource type="Resource" uid="uid://c0hjropcdhrne" path="res://resources/emotions/angry_emotion.tres" id="2_2gagl"]
+[ext_resource type="PackedScene" uid="uid://dtqnapbmgufmx" path="res://scenes/utils/random_timer.tscn" id="2_qv0gr"]
+[ext_resource type="Resource" uid="uid://4ea75jsi8mkv" path="res://resources/emotions/depressed_emotion.tres" id="3_o7k7s"]
+[ext_resource type="Resource" uid="uid://dpyrl7qtgdt2w" path="res://resources/emotions/sad_emotion.tres" id="4_scdsk"]
+[ext_resource type="Resource" uid="uid://dtapkgjh1o3ht" path="res://resources/emotions/happy_emotion.tres" id="5_kxeti"]
+[ext_resource type="Resource" uid="uid://b2l5dybhcfwo1" path="res://resources/emotions/love_emotion.tres" id="6_finja"]
+[ext_resource type="Resource" uid="uid://ci0a7dnhu822v" path="res://resources/emotions/sleep_emotion.tres" id="7_810ko"]
+[ext_resource type="Resource" uid="uid://min34y10yy27" path="res://resources/emotions/gift_emotion.tres" id="8_mbky8"]
+
+[node name="EmotionHandler" type="Node"]
+script = ExtResource("1_4nbdb")
+Emotions = Array[Resource]([ExtResource("2_2gagl"), ExtResource("3_o7k7s"), ExtResource("4_scdsk"), ExtResource("5_kxeti"), ExtResource("6_finja"), ExtResource("7_810ko"), ExtResource("8_mbky8")])
+
+[node name="EmotionTimer" parent="." instance=ExtResource("2_qv0gr")]
+MinTimerSeconds = 2
+MaxTimerSeconds = 5
+
+[node name="ClearTimer" type="Timer" parent="."]
+wait_time = 5.0

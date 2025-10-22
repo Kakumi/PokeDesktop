@@ -10,12 +10,10 @@ public partial class Frame : Node2D
     [Export] public PackedScene PokemonFrame;
 
     private bool _clickThough;
-    private Ui _ui;
 
     public override void _Ready()
     {
         _clickThough = true;
-        _ui = GetNode<Ui>("UI");
 
         SetWindow();
 
@@ -56,7 +54,6 @@ public partial class Frame : Node2D
 
         Vector2I windowSize = new Vector2I(screenSize.X, Height);
         Vector2I windowPosition = new Vector2I(0, screenSize.Y - Height - taskbarHeight);
-        _ui.Size = windowSize;
 
         //var region = _ui.GetRegion(windowPosition);
         //DisplayServer.WindowSetMousePassthrough(region);

@@ -36,8 +36,8 @@ public partial class PokemonFrame : Node2D
 
     private void _spriteCache_TextureReady(Texture2D texture)
     {
-        //var t = GetParent().GetNode<TextureRect>("View/TextureRect");
-        //t.Texture = texture;
+        var t = GetParent().GetNode<TextureRect>("View/TextureRect");
+        t.Texture = texture;
         PokemonSprite.Texture = texture;
 
         var contentSize = GetSize();
@@ -49,14 +49,14 @@ public partial class PokemonFrame : Node2D
         SpeechBubble2D.QueueRedraw();
 
         SpriteAutoCrop.FitBottomTo(PokemonSprite);
-        //SpriteAutoCrop.ApplyCrop(t, 0.05f, true);
+        SpriteAutoCrop.ApplyCrop(t, 0.05f, true);
     }
 
     public void Init(PKM pokemon, PokemonWindow window)
     {
         _spriteCache.LoadOrDownloadTexture(pokemon, true);
 
-        string name = pokemon.IsNicknamed ? pokemon.Nickname : UserSettings.Instance.GameStrings.Species.ElementAt(pokemon.Species);
+        string name = pokemon.IsNicknamed ? pokemon.Nickname : GameInfo.Strings.Species.ElementAt(pokemon.Species);
 
         var contentSize = GetSize();
         var spriteSize = GetSpriteSize();
@@ -77,7 +77,7 @@ public partial class PokemonFrame : Node2D
             _movement = moveInfo.PackedScene.Instantiate<BaseMovement>();
             AddChild(_movement);
 
-            _movement.Init(pokemon, window, this);
+            //_movement.Init(pokemon, window, this);
         }
     }
 

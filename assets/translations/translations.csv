@@ -1,0 +1,10 @@
+keys,en,fr
+SETTINGS_LANGUAGE,Language,Langage
+SETTINGS_SAVE_PATH,Your pokémon game save file location,Chemin vers le fichier de sauvegarde d'un jeu pokémon
+SETTINGS_SHOW_NAME,Display the names of Pokémon,Affiche le nom des pokémons
+SETTINGS_SMART_MOVE,Pokémon move differently depending on their type,Les pokémons se déplacent en fonction de leur type
+SETTINGS_DROP_MONEY,Pokémon can find and add money to your save file,Les pokémons peuvent trouver et ajouter de l'argent à votre sauvegarde
+SETTINGS_DROP_ITEM,Pokémon can find and add items to your save file,Les pokémons peuvent trouver et ajouter des objets à votre sauvegarde
+SETTINGS_SHOW_EMOTION,Pokémon has emotions,Les pokémons ont des émotions
+LANG_fr,Français,Français
+LANG_en,English,English

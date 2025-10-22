@@ -16,7 +16,7 @@ public partial class BaseMovement : Node2D
 
     public PKM Pokemon { get; private set; }
     public PokemonWindow WindowToMove { get; private set; }
-    public PokemonFrame Frame { get; private set; }
+    public PokemonInstance Instance { get; private set; }
 
     protected enum State { Idle, Walking }
     protected State _state = State.Idle;
@@ -30,11 +30,11 @@ public partial class BaseMovement : Node2D
 
     protected readonly Random _rng = new();
 
-    public void Init(PKM pkm, PokemonWindow window, PokemonFrame frame)
+    public void Init(PKM pkm, PokemonWindow window, PokemonInstance instance)
     {
         Pokemon = pkm;
         WindowToMove = window;
-        Frame = frame;
+        Instance = instance;
 
         EnterIdle();
     }

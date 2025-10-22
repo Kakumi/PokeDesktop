@@ -17,7 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-UserSettings="*res://auto_load/user_settings.tscn"
+SettingsManager="*res://auto_load/SettingsManager.cs"
+PokemonSaveManager="*res://auto_load/pokemon_save_manager.tscn"
 
 [display]
 
@@ -27,6 +28,10 @@ window/per_pixel_transparency/allowed=true
 [dotnet]
 
 project/assembly_name="PokeDesktop"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets/translations/translations.en.translation", "res://assets/translations/translations.fr.translation")
 
 [rendering]
 

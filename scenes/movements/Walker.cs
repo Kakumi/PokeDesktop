@@ -26,7 +26,7 @@ public partial class Walker : BaseMovement
         float targetX = Mathf.Clamp(_startPos.X + _dirSign * dist, 0f, WindowToMove.GetWindowMaxX());
         _targetPos = new Vector2I((int)targetX, (int)GetWinBaseY());
 
-        if (Frame.PokemonSprite != null) Frame.PokemonSprite.FlipH = _dirSign > 0f;
+        if (Instance.PokemonSprite != null) Instance.PokemonSprite.FlipH = _dirSign > 0f;
     }
 
     protected override void UpdateCustomAnimation(float dt)

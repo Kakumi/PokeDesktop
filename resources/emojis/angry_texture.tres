@@ -1,0 +1,26 @@
+[gd_resource type="AnimatedTexture" load_steps=8 format=3 uid="uid://w8ejr6ovfxxc"]
+
+[ext_resource type="Texture2D" uid="uid://bbjo537tap6u3" path="res://assets/images/emojis/angry/angry_1.png" id="1_jvf3o"]
+[ext_resource type="Texture2D" uid="uid://nh0250j5kn1x" path="res://assets/images/emojis/angry/angry_2.png" id="2_pkqrf"]
+[ext_resource type="Texture2D" uid="uid://15725ptp0rc4" path="res://assets/images/emojis/angry/angry_3.png" id="3_tauk3"]
+[ext_resource type="Texture2D" uid="uid://bdbskfpbfryfu" path="res://assets/images/emojis/angry/angry_4.png" id="4_o72db"]
+[ext_resource type="Texture2D" uid="uid://f6hjalixxric" path="res://assets/images/emojis/angry/angry_5.png" id="5_q077u"]
+[ext_resource type="Texture2D" uid="uid://yi241l5dbmlk" path="res://assets/images/emojis/angry/angry_6.png" id="6_65jdb"]
+[ext_resource type="Texture2D" uid="uid://cb8fbjdb3qjgc" path="res://assets/images/emojis/angry/angry_7.png" id="7_kyibs"]
+
+[resource]
+frames = 7
+frame_0/texture = ExtResource("1_jvf3o")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("2_pkqrf")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("3_tauk3")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("4_o72db")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("5_q077u")
+frame_4/duration = 0.1
+frame_5/texture = ExtResource("6_65jdb")
+frame_5/duration = 0.1
+frame_6/texture = ExtResource("7_kyibs")
+frame_6/duration = 0.1

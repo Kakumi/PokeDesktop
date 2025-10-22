@@ -140,6 +140,8 @@ namespace PokeDesktop.utils
             {
                 int dy = GetBottomTransparentRows(baseTex, alphaThreshold);
                 tr.Position -= new Vector2(0, dy);
+                //tr.OffsetRight = cropRect.Position.X;
+                //tr.OffsetTop = cropRect.Position.Y;
             }
         }
     }

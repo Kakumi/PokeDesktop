@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqpxc42ev0hy4"]
+
+[ext_resource type="Script" uid="uid://b1r3xwdi10ilr" path="res://auto_load/PokemonSaveManager.cs" id="1_hqpmy"]
+[ext_resource type="PackedScene" uid="uid://cpoii0vxe4hh2" path="res://scenes/ui/pokemon_window.tscn" id="2_7fkkm"]
+
+[node name="PokemonSaveManager" type="Node"]
+script = ExtResource("1_hqpmy")
+PokemonWindow = ExtResource("2_7fkkm")

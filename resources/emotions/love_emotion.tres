@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b2l5dybhcfwo1"]
+
+[ext_resource type="Texture2D" uid="uid://ddfb2j44ehilk" path="res://resources/emojis/love_texture.tres" id="1_kooqt"]
+[ext_resource type="Script" uid="uid://bia2gfm8pnb1n" path="res://models/resources/Emotion.cs" id="2_gfewb"]
+
+[resource]
+script = ExtResource("2_gfewb")
+Type = 5
+Texture = ExtResource("1_kooqt")

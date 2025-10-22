@@ -1,0 +1,26 @@
+[gd_resource type="AnimatedTexture" load_steps=8 format=3 uid="uid://d6khyhymqvmb"]
+
+[ext_resource type="Texture2D" uid="uid://bcfnh12xr4eah" path="res://assets/images/emojis/depressed/depressed_1.png" id="1_rlmo7"]
+[ext_resource type="Texture2D" uid="uid://b54fe1p5nruxj" path="res://assets/images/emojis/depressed/depressed_2.png" id="2_lp3h1"]
+[ext_resource type="Texture2D" uid="uid://dy5jbha75gpiq" path="res://assets/images/emojis/depressed/depressed_3.png" id="3_0yay6"]
+[ext_resource type="Texture2D" uid="uid://c5ftl7vmn5imx" path="res://assets/images/emojis/depressed/depressed_4.png" id="4_xuiwg"]
+[ext_resource type="Texture2D" uid="uid://bi16mbqh3apgp" path="res://assets/images/emojis/depressed/depressed_5.png" id="5_amoj7"]
+[ext_resource type="Texture2D" uid="uid://bsm05rk104x63" path="res://assets/images/emojis/depressed/depressed_6.png" id="6_qlxvj"]
+[ext_resource type="Texture2D" uid="uid://xdx5iiaspshq" path="res://assets/images/emojis/depressed/depressed_7.png" id="7_xyahb"]
+
+[resource]
+frames = 7
+frame_0/texture = ExtResource("1_rlmo7")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("2_lp3h1")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("3_0yay6")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("4_xuiwg")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("5_amoj7")
+frame_4/duration = 0.1
+frame_5/texture = ExtResource("6_qlxvj")
+frame_5/duration = 0.1
+frame_6/texture = ExtResource("7_xyahb")
+frame_6/duration = 0.1

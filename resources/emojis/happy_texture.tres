@@ -1,0 +1,26 @@
+[gd_resource type="AnimatedTexture" load_steps=8 format=3 uid="uid://dqpgp06utll4e"]
+
+[ext_resource type="Texture2D" uid="uid://cnp858ra7ssmv" path="res://assets/images/emojis/happy/haapy_1.png" id="1_8jfcv"]
+[ext_resource type="Texture2D" uid="uid://csplunnif5t46" path="res://assets/images/emojis/happy/happy_2.png" id="2_8goen"]
+[ext_resource type="Texture2D" uid="uid://i600os40chv5" path="res://assets/images/emojis/happy/happy_3.png" id="3_ufj6p"]
+[ext_resource type="Texture2D" uid="uid://itc83yet38d8" path="res://assets/images/emojis/happy/happy_4.png" id="4_p1ltq"]
+[ext_resource type="Texture2D" uid="uid://17tl47vm2lcg" path="res://assets/images/emojis/happy/happy_5.png" id="5_2jlic"]
+[ext_resource type="Texture2D" uid="uid://0y7ahd3vbu5s" path="res://assets/images/emojis/happy/happy_6.png" id="6_i6cq3"]
+[ext_resource type="Texture2D" uid="uid://fwv0t4g2675l" path="res://assets/images/emojis/happy/happy_7.png" id="7_ddxkj"]
+
+[resource]
+frames = 7
+frame_0/texture = ExtResource("1_8jfcv")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("2_8goen")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("3_ufj6p")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("4_p1ltq")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("5_2jlic")
+frame_4/duration = 0.1
+frame_5/texture = ExtResource("6_i6cq3")
+frame_5/duration = 0.1
+frame_6/texture = ExtResource("7_ddxkj")
+frame_6/duration = 0.1
