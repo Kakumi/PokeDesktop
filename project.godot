@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="PokeDesktop"
+config/name="PokéDesktop"
 run/main_scene="uid://bf3ke7pn8rtq3"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="uid://djyg1l8mk156l"
+config/icon="uid://djyg1l8mk156l"
 
 [autoload]
 
