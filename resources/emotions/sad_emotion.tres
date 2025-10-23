@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://dpyrl7qtgdt2w"]
 
-[ext_resource type="Texture2D" uid="uid://cttninfqqosgu" path="res://resources/emojis/sad_texture.tres" id="1_jo72v"]
+[ext_resource type="Texture2D" uid="uid://cttninfqqosgu" path="res://resources/emotions/sad_texture.tres" id="1_jo72v"]
 [ext_resource type="Script" uid="uid://bia2gfm8pnb1n" path="res://models/resources/Emotion.cs" id="2_u46bn"]
 
 [resource]

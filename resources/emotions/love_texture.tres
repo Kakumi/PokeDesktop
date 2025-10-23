@@ -1,0 +1,26 @@
+[gd_resource type="AnimatedTexture" load_steps=8 format=3 uid="uid://ddfb2j44ehilk"]
+
+[ext_resource type="Texture2D" uid="uid://ifds3dqevrh3" path="res://assets/images/emotions/love/love_1.png" id="1_jni7d"]
+[ext_resource type="Texture2D" uid="uid://c0bthfebjjosf" path="res://assets/images/emotions/love/love_2.png" id="2_rl7x2"]
+[ext_resource type="Texture2D" uid="uid://nknl0wcsuq1w" path="res://assets/images/emotions/love/love_3.png" id="3_ohid0"]
+[ext_resource type="Texture2D" uid="uid://dcm7bj4sg2uam" path="res://assets/images/emotions/love/love_4.png" id="4_cfhjt"]
+[ext_resource type="Texture2D" uid="uid://df8osgofre3cp" path="res://assets/images/emotions/love/love_5.png" id="5_0lbt8"]
+[ext_resource type="Texture2D" uid="uid://cnaecml7dehhg" path="res://assets/images/emotions/love/love_6.png" id="6_qgojs"]
+[ext_resource type="Texture2D" uid="uid://t2w4a6strxjk" path="res://assets/images/emotions/love/love_7.png" id="7_yul6f"]
+
+[resource]
+frames = 7
+frame_0/texture = ExtResource("1_jni7d")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("2_rl7x2")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("3_ohid0")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("4_cfhjt")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("5_0lbt8")
+frame_4/duration = 0.1
+frame_5/texture = ExtResource("6_qgojs")
+frame_5/duration = 0.1
+frame_6/texture = ExtResource("7_yul6f")
+frame_6/duration = 0.1

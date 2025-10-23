@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://ci0a7dnhu822v"]
 
-[ext_resource type="Texture2D" uid="uid://bpejos0shkicn" path="res://resources/emojis/sleep_texture.tres" id="1_s57d8"]
+[ext_resource type="Texture2D" uid="uid://bpejos0shkicn" path="res://resources/emotions/sleep_texture.tres" id="1_s57d8"]
 [ext_resource type="Script" uid="uid://bia2gfm8pnb1n" path="res://models/resources/Emotion.cs" id="2_xaqsx"]
 
 [resource]
