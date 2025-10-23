@@ -35,22 +35,6 @@ jobs:
         with:
           proj-path: PokeDesktop.csproj
 
-      - name: Ensure tag exists (create if missing)
-        shell: bash
-        env:
-          VERSION: ${{steps.get-version.outputs.version-prefix}}
-        run: |
-          set -e
-          TAG="v${VERSION}"
-          git fetch --tags
-          if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
-            echo "Tag ${TAG} already exists."
-          else
-            git tag -a "${TAG}" -m "Release ${TAG}"
-            git push origin "${TAG}"
-            echo "Tag ${TAG} created and pushed."
-          fi
-
       - name: Prepare MONO template
         shell: bash
         env:
