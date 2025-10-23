@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgsom8p1uvcu4"]
+
+[ext_resource type="PackedScene" uid="uid://bie524e3oxc05" path="res://scenes/movements/base_movement.tscn" id="1_x10or"]
+[ext_resource type="Script" uid="uid://ctcivg80gmaqn" path="res://scenes/movements/Walker.cs" id="2_onxtt"]
+
+[node name="Fly" instance=ExtResource("1_x10or")]
+script = ExtResource("2_onxtt")
+BaseSpeedPxPerSec = 100.0
+WalkDistMin = 100.0
+WalkDistMax = 400.0
+OffsetY = 20

@@ -5,3 +5,4 @@
 
 [node name="Walker" instance=ExtResource("1_7wkr1")]
 script = ExtResource("2_imxff")
+WalkTriggerChance = 100.0

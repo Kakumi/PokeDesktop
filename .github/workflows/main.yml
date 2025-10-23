@@ -1,0 +1,128 @@
+name: Publish App
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GODOT_VERSION: "4.5.1"
+  PROJECT_DIR: "."
+  WINDOWS_PRESET: "Windows Desktop"
+  MACOS_PRESET: "macOS"
+  LINUX_PRESET: "Linux"
+  EXPORT_ROOT: "build"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: barichello/godot-ci:mono-4.5.1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read Version
+        id: version
+        shell: bash
+        run: |
+          VERSION=$(grep -oPm1 "(?<=<VersionPrefix>)[^<]+" **/*.csproj || true)
+          if [ -z "$VERSION" ]; then
+            echo "Can't find <VersionPrefix> inside .csproj"; exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Version found: $VERSION"
+
+      - name: Ensure tag exists (create if missing)
+        shell: bash
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -e
+          TAG="v${VERSION}"
+          git fetch --tags
+          if git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+            echo "Tag ${TAG} already exists."
+          else
+            git tag -a "${TAG}" -m "Release ${TAG}"
+            git push origin "${TAG}"
+            echo "Tag ${TAG} created and pushed."
+          fi
+
+      - name: Prepare MONO template
+        shell: bash
+        env:
+          GODOT_VERSION: ${{ env.GODOT_VERSION }}
+        run: |
+          set -eux
+          mkdir -p ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono || true
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono || true
+
+      - name: Display godot version
+        run: godot --version
+
+      - name: Clean and create build folder
+        run: |
+          rm -rf "${EXPORT_ROOT}"
+          mkdir -p "${EXPORT_ROOT}/windows" "${EXPORT_ROOT}/macos" "${EXPORT_ROOT}/linux"
+
+      # --- Exports ---
+      - name: Export Windows (release)
+        run: |
+          godot --headless --verbose --path "${PROJECT_DIR}" \
+            --export-release "${WINDOWS_PRESET}" \
+            "${EXPORT_ROOT}/windows/game-${{ steps.version.outputs.version }}.exe"
+
+      # Décommente si tu veux aussi macOS :
+      # - name: Export macOS (release)
+      #   run: |
+      #     godot --headless --verbose --path "${PROJECT_DIR}" \
+      #       --export-release "${MACOS_PRESET}" \
+      #       "${EXPORT_ROOT}/macos/game-${{ steps.version.outputs.version }}.zip"
+
+      - name: Export Linux (release)
+        run: |
+          godot --headless --verbose --path "${PROJECT_DIR}" \
+            --export-release "${LINUX_PRESET}" \
+            "${EXPORT_ROOT}/linux/game-${{ steps.version.outputs.version }}.x86_64"
+
+      # --- Upload des artifacts de build (CI) ---
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-${{ steps.version.outputs.version }}
+          path: ${EXPORT_ROOT}/windows/*
+
+      # - name: Upload macOS artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: macos-${{ steps.version.outputs.version }}
+      #     path: ${EXPORT_ROOT}/macos/*
+
+      - name: Upload Linux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ steps.version.outputs.version }}
+          path: ${EXPORT_ROOT}/linux/*
+
+      # --- Create & Publish Release + Upload assets ---
+      - name: Create GitHub Release and upload assets
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: v${{ steps.version.outputs.version }}
+          name: ${{ steps.version.outputs.version }}
+          draft: false
+          prerelease: false
+          files: |
+            ${EXPORT_ROOT}/windows/*
+            ${EXPORT_ROOT}/linux/*
+            ${EXPORT_ROOT}/macos/*

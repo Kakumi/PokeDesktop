@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://blkhffnd7en3s"]
+
+[ext_resource type="PackedScene" uid="uid://bgsom8p1uvcu4" path="res://scenes/movements/fly.tscn" id="1_upide"]
+[ext_resource type="Script" uid="uid://s13de8m645n7" path="res://models/resources/PokemonMovement.cs" id="2_fwoww"]
+
+[resource]
+script = ExtResource("2_fwoww")
+Type = 4
+PackedScene = ExtResource("1_upide")

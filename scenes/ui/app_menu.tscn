@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dhxfah7rmtkir"]
+
+[node name="AppMenu" type="Window"]
+oversampling_override = 1.0
+title = "APP_MENU"
+initial_position = 1
+size = Vector2i(800, 400)
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="TabBar" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="TabBar2" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="TabBar3" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2

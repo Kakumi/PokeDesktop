@@ -10,28 +10,31 @@ config_version=5
 
 [application]
 
-config/name="PokeDesktop"
-run/main_scene="res://frame.tscn"
+config/name="PokéDesktop"
+run/main_scene="uid://bf3ke7pn8rtq3"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="uid://djyg1l8mk156l"
+config/icon="uid://djyg1l8mk156l"
 
 [autoload]
 
-TrayManager="*res://auto_load/TrayManager.cs"
+GlobalLogger="*res://auto_load/Logger.cs"
+SettingsManager="*res://auto_load/SettingsManager.cs"
+PokemonSaveManager="*res://auto_load/pokemon_save_manager.tscn"
+VersionManager="*res://auto_load/version_manager.tscn"
 
 [display]
 
-window/size/resizable=false
-window/size/borderless=true
-window/size/always_on_top=true
-window/size/transparent=true
-window/size/minimize_disabled=true
-window/size/maximize_disabled=true
+window/subwindows/embed_subwindows=false
 window/per_pixel_transparency/allowed=true
 
 [dotnet]
 
 project/assembly_name="PokeDesktop"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets/translations/translations.en.translation", "res://assets/translations/translations.fr.translation")
 
 [rendering]
 

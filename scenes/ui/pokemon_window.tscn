@@ -1,0 +1,54 @@
+[gd_scene load_steps=12 format=3 uid="uid://cpoii0vxe4hh2"]
+
+[ext_resource type="Script" uid="uid://x4oesa2ywfif" path="res://scenes/ui/PokemonWindow.cs" id="1_35qis"]
+[ext_resource type="Script" uid="uid://dsp8cchwl4r08" path="res://scenes/ui/PokemonInstance.cs" id="2_ekw0f"]
+[ext_resource type="Texture2D" uid="uid://bxbgnm1dntaq0" path="res://assets/images/unknown.png" id="2_xfoi2"]
+[ext_resource type="Resource" uid="uid://6xyrbu0ppi51" path="res://resources/movements/walk_movement.tres" id="3_ekw0f"]
+[ext_resource type="PackedScene" uid="uid://ern1gr833cbm" path="res://scenes/characters/pokemon_sprite_cache.tscn" id="3_qbph1"]
+[ext_resource type="Resource" uid="uid://cmaii3cjxcsy" path="res://resources/movements/teleport_movement.tres" id="4_0q6f4"]
+[ext_resource type="Resource" uid="uid://blkhffnd7en3s" path="res://resources/movements/fly_movement.tres" id="5_muvqv"]
+[ext_resource type="Resource" uid="uid://drm0xu2x02jsu" path="res://resources/movements/dig_movement.tres" id="6_sbcvp"]
+[ext_resource type="PackedScene" uid="uid://bidtguqs3wgmk" path="res://scenes/characters/emotion_handler.tscn" id="6_tyn2u"]
+[ext_resource type="Resource" uid="uid://cxw86nbpt2idx" path="res://resources/movements/swim_movement.tres" id="7_5ex0g"]
+[ext_resource type="Resource" uid="uid://d3qvpktvwugen" path="res://resources/movements/bouncing_movement.tres" id="8_yygtg"]
+
+[node name="PokemonWindow" type="Window"]
+transparent_bg = true
+oversampling_override = 1.0
+size = Vector2i(100, 200)
+unresizable = true
+borderless = true
+always_on_top = true
+transparent = true
+minimize_disabled = true
+maximize_disabled = true
+script = ExtResource("1_35qis")
+
+[node name="View" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_ekw0f")
+Movements = Array[Resource]([ExtResource("3_ekw0f"), ExtResource("4_0q6f4"), ExtResource("5_muvqv"), ExtResource("6_sbcvp"), ExtResource("7_5ex0g"), ExtResource("8_yygtg")])
+
+[node name="EmojiButton" type="TextureButton" parent="View"]
+layout_mode = 2
+stretch_mode = 3
+
+[node name="PokemonName" type="Label" parent="View"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Texte"
+horizontal_alignment = 1
+
+[node name="PokemonSprite" type="TextureRect" parent="View"]
+layout_mode = 2
+texture = ExtResource("2_xfoi2")
+stretch_mode = 5
+
+[node name="PokemonSpriteCache" parent="View" instance=ExtResource("3_qbph1")]
+
+[node name="EmotionHandler" parent="View" node_paths=PackedStringArray("Bubble") instance=ExtResource("6_tyn2u")]
+Bubble = NodePath("../EmojiButton")
