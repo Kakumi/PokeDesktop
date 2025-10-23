@@ -33,7 +33,7 @@ jobs:
         uses: kzrnm/get-net-sdk-project-versions-action@v1
         id: get-version
         with:
-          proj-path: src/Pokebot.csproj
+          proj-path: PokeDesktop.csproj
 
       - name: Ensure tag exists (create if missing)
         shell: bash
