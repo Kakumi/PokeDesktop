@@ -13,6 +13,8 @@ public partial class EmotionHandler : Node
     [Export(PropertyHint.Range, "1,10,1")] public int DropItemMaxAmount { get; set; } = 3;
     [Export(PropertyHint.Range, "0,10000,1")] public int DropMoneyMinAmount { get; set; } = 200;
     [Export(PropertyHint.Range, "0,10000,1")] public int DropMoneyMaxAmount { get; set; } = 2000;
+    [Export(PropertyHint.Range, "0,255,1")] public byte FriendshipValue { get; set; } = 3;
+    [Export(PropertyHint.Range, "0,255,1")] public byte FriendshipGiftValue { get; set; } = 5;
 
     public Timer ClearTimer { get; private set; }
     public RandomTimer EmotionTimer { get; private set; }
@@ -62,7 +64,7 @@ public partial class EmotionHandler : Node
     {
         if (_currentEmotion == EmotionType.Gift)
         {
-            PokemonSaveManager.Instance.UpdateFriendship(_pkm, 5);
+            PokemonSaveManager.Instance.UpdateFriendship(_pkm, FriendshipGiftValue);
 
             double roll = _rng.NextDouble();
             if (SettingsManager.Instance.Settings.DropItem && (roll < ChanceDropItem || !SettingsManager.Instance.Settings.DropMoney))
@@ -78,7 +80,7 @@ public partial class EmotionHandler : Node
         }
         else
         {
-            PokemonSaveManager.Instance.UpdateFriendship(_pkm, 3);
+            PokemonSaveManager.Instance.UpdateFriendship(_pkm, FriendshipValue);
         }
 
         Reset();
