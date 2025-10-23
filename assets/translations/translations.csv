@@ -1,4 +1,5 @@
 keys,en,fr
+SETTINGS_SCREEN,Screen,Écran
 SETTINGS_LANGUAGE,Language,Langue
 SETTINGS_SAVE_PATH,Your pokémon game save file location,Chemin vers le fichier de sauvegarde d'un jeu pokémon
 SETTINGS_SHOW_NAME,Display the names of Pokémon,Affiche le nom des pokémons
@@ -32,3 +33,4 @@ APP_UPDATE_TITLE,An update is available,Une mise à jour est disponible
 APP_UPDATE_MESSAGE,Version {0} is available. Would you like to download it?,La version {0} est disponible. Voulez-vous la télécharger ?
 APP_UPDATE_LOG,New version {0} is available. Download it now to unlock more features and bug fixes!,Nouvelle version {0} est disponible. Téléchargez-la dès maintenant pour bénéficier de nouvelles fonctionnalités et de corrections de bugs !
 ERROR_PARSING_RESPONSE,Unable to deserialise the release response,Impossible de désérialisé la réponse de la release
+MONITOR,Screen {0},Écran {0}

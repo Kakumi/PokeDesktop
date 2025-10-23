@@ -12,25 +12,40 @@ public partial class PokemonWindow : Window
         Instance = GetNode<PokemonInstance>("View");
 
         Instance.MinimumSizeChanged += Instance_MinimumSizeChanged;
+
+        CurrentScreen = GetScreen();
     }
 
     private void Instance_MinimumSizeChanged()
     {
         var size = Instance.GetCombinedMinimumSize();
         Size = new Vector2I((int)size.X, (int)size.Y);
-        Position = new Vector2I(Position.X, GetWindowDefaultPosition().Y);
+        Position = new Vector2I(Position.X, GetWindowDefaultPosition().Y - Instance?.GetOffsetY() ?? 0);
     }
 
-    public int GetWindowMaxX()
+    //Return :
+    //X : Start
+    //Y : End
+    public Vector2I GetWindowUsable()
     {
-        var viewW = DisplayServer.ScreenGetSize().X;
+        Rect2I usable = DisplayServer.ScreenGetUsableRect(GetScreen());
+        return new Vector2I(usable.Position.X, usable.End.X - (int)Instance.GetCombinedMinimumSize().X);
+    }
 
-        return (int)Mathf.Floor(viewW - Instance.GetSize().Y);
+    private int GetScreen()
+    {
+        var screen = SettingsManager.Instance.Settings.ScreenIndex;
+        if (screen >= DisplayServer.GetScreenCount())
+        {
+            return DisplayServer.GetPrimaryScreen();
+        }
+
+        return screen;
     }
 
     public Vector2I GetWindowDefaultPosition()
     {
-        var screen = DisplayServer.GetPrimaryScreen();
+        var screen = GetScreen();
         var screenSize = DisplayServer.ScreenGetSize(screen);
         Rect2I usable = DisplayServer.ScreenGetUsableRect(screen);
         var taskbarHeight = screenSize.Y - (usable.Position.Y + usable.Size.Y);
@@ -40,7 +55,8 @@ public partial class PokemonWindow : Window
 
         if (_defaultPosX == -1)
         {
-            _defaultPosX = _rng.RandiRange(0, GetWindowMaxX());
+            var windowUsable = GetWindowUsable();
+            _defaultPosX = _rng.RandiRange(windowUsable.X, windowUsable.Y);
         }
 
         return new Vector2I(_defaultPosX, screenSize.Y - frameSize.Y - taskbarHeight);

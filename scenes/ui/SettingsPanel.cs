@@ -1,6 +1,7 @@
 using Godot;
 using PKHeX.Core;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class SettingsPanel : VBoxContainer
@@ -9,6 +10,7 @@ public partial class SettingsPanel : VBoxContainer
     public Label ErrorLabel { get; private set; }
     public Label SuccessLabel { get; private set; }
 
+    public OptionButton ScreensBox { get; private set; }
     public OptionButton LanguagesBox { get; private set; }
     public TextureButton OpenSaveFileButton { get; private set; }
     public FileDialog FileDialog { get; private set; }
@@ -28,6 +30,7 @@ public partial class SettingsPanel : VBoxContainer
         ErrorLabel = settingsContainer.GetNode<Label>("SavePath/HBoxContainer/ErrorLabel");
         SuccessLabel = settingsContainer.GetNode<Label>("SavePath/HBoxContainer/SuccessLabel");
 
+        ScreensBox = settingsContainer.GetNode<OptionButton>("Screen/ScreensBox");
         LanguagesBox = settingsContainer.GetNode<OptionButton>("Language/LanguagesBox");
         FileDialog = settingsContainer.GetNode<FileDialog>("SavePath/FileDialog");
         OpenSaveFileButton = settingsContainer.GetNode<TextureButton>("SavePath/MarginContainer/OpenSaveFileButton");
@@ -41,6 +44,7 @@ public partial class SettingsPanel : VBoxContainer
         SaveButton = GetNode<Button>("SaveButton");
 
         OpenSaveFileButton.Pressed += OpenSaveFileButton_Pressed;
+        ScreensBox.ItemSelected += ScreensBox_ItemSelected;
         LanguagesBox.ItemSelected += LanguagesBox_ItemSelected;
         MaxVisible.ValueChanged += MaxVisible_ValueChanged;
         SaveButton.Pressed += SaveButton_Pressed;
@@ -77,6 +81,7 @@ public partial class SettingsPanel : VBoxContainer
         }
 
         InitLanguages(settings);
+        InitScreens(settings);
     }
 
     private void InitLanguages(Settings settings)
@@ -97,6 +102,20 @@ public partial class SettingsPanel : VBoxContainer
         {
             var languageIndex = Array.IndexOf(supportedLanguages.ToArray(), settings.Language);
             LanguagesBox.Select(languageIndex);
+        }
+    }
+
+    private void InitScreens(Settings settings)
+    {
+        int screenCount = DisplayServer.GetScreenCount();
+        var dictionary = new Dictionary<int, string>();
+        for (int i = 0; i < screenCount; i++)
+        {
+            ScreensBox.AddItem(string.Format(TranslationServer.Translate("MONITOR"), i), i);
+            if (settings.ScreenIndex == i)
+            {
+                ScreensBox.Select(i);
+            }
         }
     }
 
@@ -128,6 +147,15 @@ public partial class SettingsPanel : VBoxContainer
     private void ShowName_Pressed()
     {
         SettingsManager.Instance.Settings.ShowName = ShowName.ButtonPressed;
+    }
+
+    private void ScreensBox_ItemSelected(long index)
+    {
+        var screenId = ScreensBox.GetItemId((int)index);
+        if (screenId < DisplayServer.GetScreenCount())
+        {
+            SettingsManager.Instance.Settings.ScreenIndex = screenId;
+        }
     }
 
     private void LanguagesBox_ItemSelected(long index)

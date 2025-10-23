@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl5s7732j3tx1"]
+
+[ext_resource type="PackedScene" uid="uid://bie524e3oxc05" path="res://scenes/movements/base_movement.tscn" id="1_q5fvv"]
+[ext_resource type="Script" uid="uid://ctcivg80gmaqn" path="res://scenes/movements/Walker.cs" id="2_mm3x0"]
+
+[node name="Swim" instance=ExtResource("1_q5fvv")]
+script = ExtResource("2_mm3x0")
+BaseSpeedPxPerSec = 50.0
+OffsetY = 20

@@ -37,10 +37,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_g014h")
-current_tab = 1
+current_tab = 0
 
 [node name="TAB_SETTINGS" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 close_with_middle_mouse = false
 metadata/_tab_index = 0
@@ -62,6 +61,7 @@ layout_mode = 2
 script = ExtResource("4_d7xot")
 
 [node name="TAB_LOGS" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

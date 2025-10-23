@@ -4,15 +4,16 @@ using System;
 
 public partial class BaseMovement : Node2D
 {
-    [Export] public float BaseSpeedPxPerSec = 80f;   // vitesse de base (px/s)
-    [Export] public float IvSpeedFactor = 3.0f;      // combien 1 point d’IV ajoute en px/s
-    [Export] public float IdleMin = 1.0f;            // temps idle min (s)
-    [Export] public float IdleMax = 4.0f;            // temps idle max (s)
-    [Export] public float WalkDistMin = 60f;         // distance de marche min (px)
-    [Export] public float WalkDistMax = 300f;        // distance de marche max (px)
-    [Export] public float WalkTriggerChance = 0.35f; // proba de déclencher une marche quand l’idle se termine
-    [Export] public float BobAmplitude = 0f;         // amplitude du rebond (px)
-    [Export] public float BobFrequency = 0f;        // fréquence du rebond (Hz)
+    [Export] public float BaseSpeedPxPerSec = 80f;
+    [Export] public float IvSpeedFactor = 3.0f;
+    [Export] public float IdleMin = 1.0f;
+    [Export] public float IdleMax = 4.0f;
+    [Export] public float WalkDistMin = 60f;
+    [Export] public float WalkDistMax = 300f;
+    [Export] public float WalkTriggerChance = 0.6f;
+    [Export] public float BobAmplitude = 0f; //7
+    [Export] public float BobFrequency = 0f; //2
+    [Export] public int OffsetY { get; set; } = 0;
 
     public PKM Pokemon { get; private set; }
     public PokemonWindow WindowToMove { get; private set; }
@@ -41,7 +42,7 @@ public partial class BaseMovement : Node2D
 
     public int GetWinBaseY()
     {
-        return WindowToMove.GetWindowDefaultPosition().Y;
+        return WindowToMove.GetWindowDefaultPosition().Y - OffsetY;
     }
 
     public override void _Process(double delta)
@@ -74,7 +75,7 @@ public partial class BaseMovement : Node2D
     {
         _state = State.Idle;
         _stateTimer = RandRange(IdleMin, IdleMax);
-        Position = new Vector2(Position.X, GetWinBaseY());
+        WindowToMove.Position = new Vector2I(WindowToMove.Position.X, GetWinBaseY());
     }
 
     private void UpdateIdle(float dt)

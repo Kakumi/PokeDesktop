@@ -20,6 +20,17 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="Screen" type="HBoxContainer" parent="SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsContainer/Screen"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_SCREEN"
+
+[node name="ScreensBox" type="OptionButton" parent="SettingsContainer/Screen"]
+layout_mode = 2
+
 [node name="Language" type="HBoxContainer" parent="SettingsContainer"]
 layout_mode = 2
 

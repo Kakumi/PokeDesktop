@@ -69,4 +69,9 @@ public partial class PokemonInstance : VBoxContainer
             _movement.Init(pokemon.Pokemon, window, this);
         }
     }
+
+    public int GetOffsetY()
+    {
+        return _movement?.OffsetY ?? 0;
+    }
 }

@@ -69,7 +69,7 @@ public partial class PokemonSaveManager : Node
         Logger.Instance.Debug($"Loading {_currentSav.PartyCount} Pokémons for trainer {_currentSav.OT}");
         Logger.Instance.Info(string.Format(TranslationServer.Translate("WELCOME_TRAINER"), _currentSav.OT));
 
-        int max = SettingsManager.Instance.Settings.MaxVisible;
+        int max = 1; // SettingsManager.Instance.Settings.MaxVisible;
         for (int i = 0; i < max && i < _currentSav.PartyCount; i++)
         {
             var pkm = _currentSav.PartyData[i];

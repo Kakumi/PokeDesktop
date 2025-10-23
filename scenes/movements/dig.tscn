@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://uhoykdtp2a1b"]
+
+[ext_resource type="PackedScene" uid="uid://bie524e3oxc05" path="res://scenes/movements/base_movement.tscn" id="1_sqg8g"]
+[ext_resource type="Script" uid="uid://c52uyc07wptkr" path="res://scenes/movements/Dig.cs" id="2_r45jk"]
+
+[node name="Dig" instance=ExtResource("1_sqg8g")]
+script = ExtResource("2_r45jk")
+SinkDuration = 0.5
+UndergroundHold = 2.0
+RiseDuration = 0.5
+SinkDepthPx = 180.0
+MoveWhileUnder = true
+StretchYOnSink = 0.7
+StretchYOnRise = 1.25

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl854smbsa1t8"]
+
+[ext_resource type="PackedScene" uid="uid://bie524e3oxc05" path="res://scenes/movements/base_movement.tscn" id="1_60255"]
+[ext_resource type="Script" uid="uid://0a6d587qf5td" path="res://scenes/movements/Bouncing.cs" id="2_asq4r"]
+
+[node name="Bouncing" instance=ExtResource("1_60255")]
+script = ExtResource("2_asq4r")
+BobAmplitude = 7.0
+BobFrequency = 2.0

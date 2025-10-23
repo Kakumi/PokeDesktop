@@ -19,12 +19,10 @@ public partial class Walker : BaseMovement
 
         _startPos = WindowToMove.Position;
 
-        //For Full width viewport
-        //var viewW = GetViewport().GetVisibleRect().Size.X;
-
         //For Window
-        float targetX = Mathf.Clamp(_startPos.X + _dirSign * dist, 0f, WindowToMove.GetWindowMaxX());
-        _targetPos = new Vector2I((int)targetX, (int)GetWinBaseY());
+        var usable = WindowToMove.GetWindowUsable();
+        float targetX = Mathf.Clamp(_startPos.X + _dirSign * dist, usable.X, usable.Y);
+        _targetPos = new Vector2I((int)targetX, GetWinBaseY());
 
         if (Instance.PokemonSprite != null) Instance.PokemonSprite.FlipH = _dirSign > 0f;
     }
