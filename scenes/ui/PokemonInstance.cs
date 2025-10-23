@@ -1,5 +1,4 @@
 using Godot;
-using PKHeX.Core;
 using System.Linq;
 
 public partial class PokemonInstance : VBoxContainer
@@ -30,7 +29,7 @@ public partial class PokemonInstance : VBoxContainer
 
     private void _spriteCache_TextureFailed(string error)
     {
-        GD.PrintErr(error);
+        Logger.Instance.Error(error);
     }
 
     private void _spriteCache_TextureReady(Texture2D texture)
@@ -38,15 +37,14 @@ public partial class PokemonInstance : VBoxContainer
         PokemonSprite.Texture = texture;
     }
 
-    public void Init(PKM pokemon, PokemonWindow window)
+    public void Init(PartyPokemon pokemon, PokemonWindow window)
     {
         _emotionHandler.Init(pokemon);
-        _spriteCache.LoadOrDownloadTexture(pokemon, SettingsManager.Instance.Settings.AnimatedSprites);
+        _spriteCache.LoadOrDownloadTexture(pokemon.Pokemon, SettingsManager.Instance.Settings.AnimatedSprites);
 
         if (SettingsManager.Instance.Settings.ShowName)
         {
-            string name = pokemon.IsNicknamed ? pokemon.Nickname : GameInfo.Strings.Species.ElementAt(pokemon.Species);
-            PokemonName.Text = name;
+            PokemonName.Text = pokemon.Pokemon.GetName();
             PokemonName.Visible = true;
         }
         else
@@ -54,7 +52,7 @@ public partial class PokemonInstance : VBoxContainer
             PokemonName.Visible = false;
         }
 
-        _movementType = pokemon.GetMovementType();
+        _movementType = pokemon.Pokemon.GetMovementType();
 
         if (_movement != null)
         {
@@ -68,7 +66,7 @@ public partial class PokemonInstance : VBoxContainer
             _movement = moveInfo.PackedScene.Instantiate<BaseMovement>();
             AddChild(_movement);
 
-            _movement.Init(pokemon, window, this);
+            _movement.Init(pokemon.Pokemon, window, this);
         }
     }
 }

@@ -1,5 +1,4 @@
 using Godot;
-using PKHeX.Core;
 
 public partial class PokemonWindow : Window
 {
@@ -47,7 +46,7 @@ public partial class PokemonWindow : Window
         return new Vector2I(_defaultPosX, screenSize.Y - frameSize.Y - taskbarHeight);
     }
 
-    public void Init(PKM pokemon)
+    public void Init(PartyPokemon pokemon)
     {
 #if DEBUG
         Transparent = false;

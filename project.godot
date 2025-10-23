@@ -17,8 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+GlobalLogger="*res://auto_load/Logger.cs"
 SettingsManager="*res://auto_load/SettingsManager.cs"
 PokemonSaveManager="*res://auto_load/pokemon_save_manager.tscn"
+VersionManager="*res://auto_load/version_manager.tscn"
 
 [display]
 

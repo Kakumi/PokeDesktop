@@ -1,5 +1,5 @@
 keys,en,fr
-SETTINGS_LANGUAGE,Language,Langage
+SETTINGS_LANGUAGE,Language,Langue
 SETTINGS_SAVE_PATH,Your pokémon game save file location,Chemin vers le fichier de sauvegarde d'un jeu pokémon
 SETTINGS_SHOW_NAME,Display the names of Pokémon,Affiche le nom des pokémons
 SETTINGS_SMART_MOVE,Pokémon move differently depending on their type,Les pokémons se déplacent en fonction de leur type
@@ -13,3 +13,22 @@ SETTINGS_INVALID_SAVE_FILE,Your save file is not supported. Please use a save fr
 SETTINGS_WELCOME_SAVE_FILE,Valid save file ! Welcome {0} !,Sauvegarde valide ! Bienvenue {0} !
 LANG_fr,Français,Français
 LANG_en,English,English
+TAB_SETTINGS,Settings,Paramètres
+TAB_LOGS,Logs,Logs
+GIFT_MONEY,{0} found {1} and gave it to you! ({2} -> {3}),{0} a trouvé {1} et vous l'a donné ! ({2} -> {3})
+GIFT_MONEY_FULL,{0} found {1} but you cannot get any more money...,{0} a trouvé {1} mais vous ne pouvez pas obtenir plus d'argent...
+GIFT_ITEM,{0} found {1}x{2} and gave it to you! ({3} -> {4}),{0} a trouvé {1}x{2} et vous l'a donné ! ({3} -> {4})
+GIFT_ITEM_FULL,{0} found {1}x{2} but your inventory is full...,{0} a trouvé {1}x{2} mais votre inventaire est plein...
+GIFT_FRIENDSHIP,{0} has gained +{1} friendship towards you! ({2} -> {3}),{0} a gagné +{1} d'amitié envers vous ! ({2} -> {3})
+GIFT_FRIENDSHIP_FULL,{0} already loves you more than anything in the world!,{0} vous aimes déjà plus que tout au monde !
+ERROR_MISSING_SAVE_FILE,Can't start the app because no save file is provided.,Impossible de démarrer l'application car aucun fichier de sauvegarde n'est fourni.
+ERROR_INVALID_SAVE_FILE,Can't start the app because save file is not supported.,Impossible de démarrer l'application car le fichier de sauvegarde n'est pas pris en charge.
+ERROR_SAVE_BACKUP_FILE,Error creating a backup file.,Erreur lors de la création d'un fichier backup.
+RELOADING_SAVE_FILE,Reloading for save file {0}...,Rechargement du fichier de sauvegarde {0}...
+WELCOME_TRAINER,Welcome {0} !,Bienvenue {0} !
+ERROR_SAVING_SAVE_FILE,Error saving changes to player's save file.,Erreur lors de l'enregistrement des modifications dans le fichier de sauvegarde du joueur.
+ERROR_GET_RELEASE_VERSION,Error checking app update,Erreur lors de la vérification de la mise à jour
+APP_UPDATE_TITLE,An update is available,Une mise à jour est disponible
+APP_UPDATE_MESSAGE,Version {0} is available. Would you like to download it?,La version {0} est disponible. Voulez-vous la télécharger ?
+APP_UPDATE_LOG,New version {0} is available. Download it now to unlock more features and bug fixes!,Nouvelle version {0} est disponible. Téléchargez-la dès maintenant pour bénéficier de nouvelles fonctionnalités et de corrections de bugs !
+ERROR_PARSING_RESPONSE,Unable to deserialise the release response,Impossible de désérialisé la réponse de la release

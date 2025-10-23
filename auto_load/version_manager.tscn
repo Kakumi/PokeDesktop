@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://3g4gumduuw0w"]
+
+[ext_resource type="Script" uid="uid://cncados3u85c6" path="res://auto_load/VersionManager.cs" id="1_ctr7f"]
+
+[node name="VersionManager" type="Node"]
+script = ExtResource("1_ctr7f")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+oversampling_override = 1.0
+title = "APP_UPDATE_TITLE"
+position = Vector2i(0, 36)
+size = Vector2i(300, 200)
+
+[node name="Panel" type="Panel" parent="AcceptDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 292.0
+offset_bottom = 151.0
+
+[node name="Label" type="Label" parent="AcceptDialog/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Version {0} is available. Would you like to download it?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

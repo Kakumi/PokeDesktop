@@ -158,7 +158,7 @@ public partial class SettingsPanel : VBoxContainer
         if (SaveUtil.TryGetSaveFile(path, out var save))
         {
             ErrorLabel.Visible = false;
-            SuccessLabel.Text = string.Format(TranslationServer.Translate("SETTINGS_WELCOME_SAVE_FILE"), save.OT);
+            SuccessLabel.Text = string.Format(TranslationServer.Translate("WELCOME_TRAINER"), save.OT);
             SuccessLabel.Visible = true;
             return true;
         }

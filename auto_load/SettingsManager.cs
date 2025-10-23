@@ -34,16 +34,16 @@ public partial class SettingsManager : Node
                 UpdateSettings();
 
                 EmitSignal(SignalName.SettingsChanged, Settings);
-                GD.Print($"[SettingsManager] Settings saved at {SETTINGS_PATH}");
+                Logger.Instance.Debug($"[SettingsManager] Settings saved at {SETTINGS_PATH}");
             }
             else
             {
-                GD.PrintErr($"[SettingsManager] Can't save settings at {SETTINGS_PATH}");
+                Logger.Instance.Error($"[SettingsManager] Can't save settings at {SETTINGS_PATH}");
             }
         }
         catch (Exception e)
         {
-            GD.PrintErr($"[SettingsManager] Fail saving settings: {e.Message}");
+            Logger.Instance.Error($"[SettingsManager] Fail saving settings: {e.Message}", e);
         }
     }
 
@@ -51,7 +51,7 @@ public partial class SettingsManager : Node
     {
         if (!FileAccess.FileExists(SETTINGS_PATH))
         {
-            GD.Print($"[SettingsManager] Fichier {SETTINGS_PATH} introuvable, création avec valeurs par défaut.");
+            Logger.Instance.Debug($"[SettingsManager] Settings file not found, creating one.");
             SaveSettings();
             return;
         }
@@ -66,7 +66,7 @@ public partial class SettingsManager : Node
         }
         catch (Exception e)
         {
-            GD.PrintErr($"[SettingsManager] Fail loading settings file: {e.Message}");
+            Logger.Instance.Error($"[SettingsManager] Fail loading settings file: {e.Message}");
             SaveSettings();
         }
     }

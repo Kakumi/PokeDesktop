@@ -1,11 +1,17 @@
 using PKHeX.Core;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class PokemonExtension
 {
     public static bool HasType(this PKM pkm, MoveType type)
     {
         return (MoveType)pkm.PersonalInfo.Type1 == type || (MoveType)pkm.PersonalInfo.Type2 == type;
+    }
+
+    public static string GetName(this PKM pkm)
+    {
+        return pkm.IsNicknamed ? pkm.Nickname : GameInfo.Strings.Species.ElementAt(pkm.Species);
     }
 
     public static MovementType GetMovementType(this PKM pokemon)

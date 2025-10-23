@@ -1,5 +1,4 @@
 using Godot;
-using PKHeX.Core;
 using System;
 using System.Linq;
 
@@ -9,12 +8,17 @@ public partial class EmotionHandler : Node
     [Export] public Emotion[] Emotions { get; set; }
     [Export(PropertyHint.Range, "0,1,0.1")] public double ShowTrainerEmotion { get; set; } = 0.5;
     [Export(PropertyHint.Range, "0,1,0.1")] public double ShowSleep { get; set; } = 0.8;
+    [Export(PropertyHint.Range, "0,1,0.1")] public double ChanceDropItem { get; set; } = 0.7;
+    [Export(PropertyHint.Range, "1,10,1")] public int DropItemMinAmount { get; set; } = 1;
+    [Export(PropertyHint.Range, "1,10,1")] public int DropItemMaxAmount { get; set; } = 3;
+    [Export(PropertyHint.Range, "0,10000,1")] public int DropMoneyMinAmount { get; set; } = 200;
+    [Export(PropertyHint.Range, "0,10000,1")] public int DropMoneyMaxAmount { get; set; } = 2000;
 
     public Timer ClearTimer { get; private set; }
     public RandomTimer EmotionTimer { get; private set; }
 
     private EmotionType _currentEmotion = EmotionType.None;
-    private PKM _pkm;
+    private PartyPokemon _pkm;
 
     private Random _rng = new Random();
 
@@ -35,7 +39,7 @@ public partial class EmotionHandler : Node
         }
     }
 
-    public void Init(PKM pokemon)
+    public void Init(PartyPokemon pokemon)
     {
         _pkm = pokemon;
     }
@@ -56,7 +60,26 @@ public partial class EmotionHandler : Node
 
     private void Bubble_Pressed()
     {
-        //_pkm.CurrentFriendship = Math.Max(_pkm.CurrentFriendship + 3, 255);
+        if (_currentEmotion == EmotionType.Gift)
+        {
+            PokemonSaveManager.Instance.UpdateFriendship(_pkm, 5);
+
+            double roll = _rng.NextDouble();
+            if (SettingsManager.Instance.Settings.DropItem && (roll < ChanceDropItem || !SettingsManager.Instance.Settings.DropMoney))
+            {
+                var amount = _rng.Next(DropItemMinAmount, DropItemMaxAmount);
+                PokemonSaveManager.Instance.AddRandomItem(_pkm, amount);
+            }
+            else if (SettingsManager.Instance.Settings.DropMoney)
+            {
+                var amount = (uint)_rng.Next(DropMoneyMinAmount, DropMoneyMaxAmount);
+                PokemonSaveManager.Instance.AddMoney(_pkm, amount);
+            }
+        }
+        else
+        {
+            PokemonSaveManager.Instance.UpdateFriendship(_pkm, 3);
+        }
 
         Reset();
     }
@@ -98,12 +121,13 @@ public partial class EmotionHandler : Node
             return;
         }
 
+        var hasGift = SettingsManager.Instance.Settings.DropItem || SettingsManager.Instance.Settings.DropMoney;
         double roll = _rng.NextDouble();
         if (roll < ShowTrainerEmotion)
         {
-            SetEmotion(GetEmotionTowardsTrainer(_pkm.CurrentFriendship));
+            SetEmotion(GetEmotionTowardsTrainer(_pkm.Pokemon.CurrentFriendship));
         }
-        else if (roll < ShowSleep)
+        else if (roll < ShowSleep || !hasGift)
         {
             SetEmotion(EmotionType.Sleep);
         }

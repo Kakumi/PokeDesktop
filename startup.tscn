@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bf3ke7pn8rtq3"]
+[gd_scene load_steps=7 format=3 uid="uid://bf3ke7pn8rtq3"]
 
 [ext_resource type="Script" uid="uid://dkf2t3f8fysc2" path="res://Startup.cs" id="1_g014h"]
 [ext_resource type="Texture2D" uid="uid://cikmjcinmng3x" path="res://assets/images/background.jpg" id="2_jojrd"]
 [ext_resource type="PackedScene" uid="uid://cbrpbo48wxdcf" path="res://scenes/ui/settings_panel.tscn" id="3_ob02o"]
 [ext_resource type="Script" uid="uid://k2npfhhi1kw3" path="res://scenes/ui/SettingsPanel.cs" id="4_d7xot"]
+[ext_resource type="PackedScene" uid="uid://b662ful5lcns0" path="res://scenes/ui/logs_panel.tscn" id="5_jojrd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g014h"]
+texture = ExtResource("2_jojrd")
+modulate_color = Color(0.21960784, 0.21960784, 0.21960784, 1)
 
 [node name="Startup" type="Control"]
 layout_mode = 3
@@ -24,17 +29,53 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_jojrd")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 1144.0
-offset_bottom = 640.0
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_g014h")
+current_tab = 1
+
+[node name="TAB_SETTINGS" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+close_with_middle_mouse = false
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/TAB_SETTINGS"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="SettingsPanel" parent="MarginContainer" instance=ExtResource("3_ob02o")]
+[node name="SettingsPanel" parent="TabContainer/TAB_SETTINGS/MarginContainer" instance=ExtResource("3_ob02o")]
 layout_mode = 2
 script = ExtResource("4_d7xot")
+
+[node name="TAB_LOGS" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/TAB_LOGS"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="LogsPanel" parent="TabContainer/TAB_LOGS/MarginContainer" instance=ExtResource("5_jojrd")]
+layout_mode = 2
