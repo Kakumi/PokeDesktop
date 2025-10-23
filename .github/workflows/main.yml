@@ -29,21 +29,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Read Version
-        id: version
-        shell: bash
-        run: |
-          VERSION=$(grep -oPm1 "(?<=<VersionPrefix>)[^<]+" **/*.csproj || true)
-          if [ -z "$VERSION" ]; then
-            echo "Can't find <VersionPrefix> inside .csproj"; exit 1
-          fi
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "Version found: $VERSION"
+      - name: Get version
+        uses: kzrnm/get-net-sdk-project-versions-action@v1
+        id: get-version
+        with:
+          proj-path: src/Pokebot.csproj
 
       - name: Ensure tag exists (create if missing)
         shell: bash
         env:
-          VERSION: ${{ steps.version.outputs.version }}
+          VERSION: ${{steps.get-version.outputs.version-prefix}}
         run: |
           set -e
           TAG="v${VERSION}"
@@ -79,38 +74,38 @@ jobs:
         run: |
           godot --headless --verbose --path "${PROJECT_DIR}" \
             --export-release "${WINDOWS_PRESET}" \
-            "${EXPORT_ROOT}/windows/game-${{ steps.version.outputs.version }}.exe"
+            "${EXPORT_ROOT}/windows/pokedesktop-${{steps.get-version.outputs.version-prefix}}.exe"
 
       # Décommente si tu veux aussi macOS :
       # - name: Export macOS (release)
       #   run: |
       #     godot --headless --verbose --path "${PROJECT_DIR}" \
       #       --export-release "${MACOS_PRESET}" \
-      #       "${EXPORT_ROOT}/macos/game-${{ steps.version.outputs.version }}.zip"
+      #       "${EXPORT_ROOT}/macos/pokedesktop-${{steps.get-version.outputs.version-prefix}}.zip"
 
       - name: Export Linux (release)
         run: |
           godot --headless --verbose --path "${PROJECT_DIR}" \
             --export-release "${LINUX_PRESET}" \
-            "${EXPORT_ROOT}/linux/game-${{ steps.version.outputs.version }}.x86_64"
+            "${EXPORT_ROOT}/linux/pokedesktop-${{steps.get-version.outputs.version-prefix}}.x86_64"
 
       # --- Upload des artifacts de build (CI) ---
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: windows-${{ steps.version.outputs.version }}
+          name: windows-${{steps.get-version.outputs.version-prefix}}
           path: ${EXPORT_ROOT}/windows/*
 
       # - name: Upload macOS artifact
       #   uses: actions/upload-artifact@v4
       #   with:
-      #     name: macos-${{ steps.version.outputs.version }}
+      #     name: macos-${{steps.get-version.outputs.version-prefix}}
       #     path: ${EXPORT_ROOT}/macos/*
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
-          name: linux-${{ steps.version.outputs.version }}
+          name: linux-${{steps.get-version.outputs.version-prefix}}
           path: ${EXPORT_ROOT}/linux/*
 
       # --- Create & Publish Release + Upload assets ---
@@ -118,8 +113,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: v${{ steps.version.outputs.version }}
-          name: ${{ steps.version.outputs.version }}
+          tag_name: v${{steps.get-version.outputs.version-prefix}}
+          name: ${{steps.get-version.outputs.version-prefix}}
           draft: false
           prerelease: false
           files: |
