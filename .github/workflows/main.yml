@@ -92,19 +92,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-${{steps.get-version.outputs.version-prefix}}
-          path: ${EXPORT_ROOT}/windows/*
+          path: ${{ env.EXPORT_ROOT }}/windows/*
 
       # - name: Upload macOS artifact
       #   uses: actions/upload-artifact@v4
       #   with:
       #     name: macos-${{steps.get-version.outputs.version-prefix}}
-      #     path: ${EXPORT_ROOT}/macos/*
+      #     path: ${{ env.EXPORT_ROOT }}/macos/*
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
           name: linux-${{steps.get-version.outputs.version-prefix}}
-          path: ${EXPORT_ROOT}/linux/*
+          path: ${{ env.EXPORT_ROOT }}/linux/*
 
       # --- Create & Publish Release + Upload assets ---
       - name: Create GitHub Release and upload assets
@@ -116,6 +116,6 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ${EXPORT_ROOT}/windows/*
-            ${EXPORT_ROOT}/linux/*
-            ${EXPORT_ROOT}/macos/*
+            ${{ env.EXPORT_ROOT }}/windows/*
+            ${{ env.EXPORT_ROOT }}/linux/*
+            ${{ env.EXPORT_ROOT }}/macos/*
