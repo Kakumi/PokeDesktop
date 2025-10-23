@@ -52,6 +52,20 @@ jobs:
         run: |
           rm -rf "${EXPORT_ROOT}"
           mkdir -p "${EXPORT_ROOT}/windows" "${EXPORT_ROOT}/macos" "${EXPORT_ROOT}/linux"
+          
+      - name: Check .NET SDK
+        run: dotnet --info || true
+
+      - name: Install .NET 9 SDK (in container)
+        run: |
+          set -eux
+          apt-get update
+          apt-get install -y wget apt-transport-https gnupg
+          wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb
+          dpkg -i packages-microsoft-prod.deb
+          apt-get update
+          apt-get install -y dotnet-sdk-9.0
+          dotnet --info
 
       # --- Exports ---
       - name: Export Windows (release)
