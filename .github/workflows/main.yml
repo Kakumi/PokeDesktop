@@ -72,20 +72,20 @@ jobs:
         run: |
           godot --headless --verbose --path "${PROJECT_DIR}" \
             --export-release "${WINDOWS_PRESET}" \
-            "${EXPORT_ROOT}/windows/PokéDesktop.exe"
+            "${EXPORT_ROOT}/windows/PokeDesktop.exe"
 
       # Décommente si tu veux aussi macOS :
       # - name: Export macOS (release)
       #   run: |
       #     godot --headless --verbose --path "${PROJECT_DIR}" \
       #       --export-release "${MACOS_PRESET}" \
-      #       "${EXPORT_ROOT}/macos/PokéDesktop.zip"
+      #       "${EXPORT_ROOT}/macos/PokeDesktop.zip"
 
       - name: Export Linux (release)
         run: |
           godot --headless --verbose --path "${PROJECT_DIR}" \
             --export-release "${LINUX_PRESET}" \
-            "${EXPORT_ROOT}/linux/PokéDesktop.x86_64"
+            "${EXPORT_ROOT}/linux/PokeDesktop.x86_64"
             
       # --- Lister pour vérifier la présence du dossier data_* ---
       - name: List export outputs
@@ -102,32 +102,35 @@ jobs:
           cd "${EXPORT_ROOT}"
 
           # Windows
-          zip -r "PokéDesktop-windows.zip" "windows"
+          cd "${GITHUB_WORKSPACE}/${EXPORT_ROOT}/windows"
+          zip -r "../PokeDesktop-windows.zip" .
 
           # macOS
-          # zip -r "PokéDesktop-macos.zip" "macos"
+          # cd "${GITHUB_WORKSPACE}/${EXPORT_ROOT}/macos"
+          # zip -r "../PokeDesktop-macos.zip" .
 
           # Linux
-          zip -r "PokéDesktop-linux.zip" "linux"
+          cd "${GITHUB_WORKSPACE}/${EXPORT_ROOT}/linux"
+          zip -r "../PokeDesktop-linux.zip" .
 
       # --- Upload des artifacts de build (CI) ---
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PokéDesktop
-          path: ${{ env.EXPORT_ROOT }}/PokéDesktop-windows.zip
+          name: PokeDesktop
+          path: ${{ env.EXPORT_ROOT }}/PokeDesktop-windows.zip
 
       # - name: Upload macOS artifact
       #   uses: actions/upload-artifact@v4
       #   with:
-      #     name: PokéDesktop-macos
-      #     path: ${{ env.EXPORT_ROOT }}/PokéDesktop-macos.zip
+      #     name: PokeDesktop-macos
+      #     path: ${{ env.EXPORT_ROOT }}/PokeDesktop-macos.zip
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PokéDesktop-linux
-          path: ${{ env.EXPORT_ROOT }}/PokéDesktop-linux.zip
+          name: PokeDesktop-linux
+          path: ${{ env.EXPORT_ROOT }}/PokeDesktop-linux.zip
 
       # --- Create & Publish Release + Upload assets ---
       - name: Create GitHub Release and upload assets
@@ -139,4 +142,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ${{ env.EXPORT_ROOT }}/*
+            ${{ env.EXPORT_ROOT }}/*.zip
