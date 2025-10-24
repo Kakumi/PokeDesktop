@@ -187,6 +187,7 @@ public partial class SettingsPanel : VBoxContainer
     {
         if (TrySaveFile(path))
         {
+            PathLabel.Text = path;
             SettingsManager.Instance.Settings.SaveFilePath = path;
         }
     }
@@ -212,6 +213,8 @@ public partial class SettingsPanel : VBoxContainer
     private void OpenSaveFileButton_Pressed()
     {
         FileDialog.Show();
+        FileDialog.CurrentScreen = GetViewport().GetWindow().CurrentScreen;
+        FileDialog.MoveToCenter();
     }
 
     private void SaveButton_Pressed()
