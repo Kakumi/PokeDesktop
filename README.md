@@ -18,6 +18,8 @@
 **PokéDesktop** is a “pet-desktop” style application built with **Godot 4.5 (C#)** that brings your Pokémon team to life on your computer desktop.  
 Using your game save (compatible up to **Pokémon Scarlet/Violet**), your Pokémon walk across your taskbar, express emotions, and can even gift you random items or money. Interacting with them increases their friendship and strengthens your bond!
 
+▶️ **[Watch the PokéDesktop Demo on YouTube](https://www.youtube.com/watch?v=ipPdtFGySok)**
+
 ---
 
 ## 📚 Table of Contents
