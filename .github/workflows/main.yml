@@ -79,13 +79,13 @@ jobs:
       #   run: |
       #     godot --headless --verbose --path "${PROJECT_DIR}" \
       #       --export-release "${MACOS_PRESET}" \
-      #       "${EXPORT_ROOT}/macos/PokéDesktop-macos.zip"
+      #       "${EXPORT_ROOT}/macos/PokéDesktop.zip"
 
       - name: Export Linux (release)
         run: |
           godot --headless --verbose --path "${PROJECT_DIR}" \
             --export-release "${LINUX_PRESET}" \
-            "${EXPORT_ROOT}/linux/PokéDesktop-linux.x86_64"
+            "${EXPORT_ROOT}/linux/PokéDesktop.x86_64"
             
       # --- Lister pour vérifier la présence du dossier data_* ---
       - name: List export outputs
@@ -96,25 +96,38 @@ jobs:
           ls -laR "${EXPORT_ROOT}/macos" || true
           echo "Linux:"
           ls -laR "${EXPORT_ROOT}/linux" || true
+          
+      - name: Create ZIP archives
+        run: |
+          cd "${EXPORT_ROOT}"
+
+          # Windows
+          zip -r "PokéDesktop-windows.zip" "windows"
+
+          # macOS
+          # zip -r "PokéDesktop-macos.zip" "macos"
+
+          # Linux
+          zip -r "PokéDesktop-linux.zip" "linux"
 
       # --- Upload des artifacts de build (CI) ---
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
           name: PokéDesktop
-          path: ${{ env.EXPORT_ROOT }}/windows/*
+          path: ${{ env.EXPORT_ROOT }}/PokéDesktop-windows.zip
 
       # - name: Upload macOS artifact
       #   uses: actions/upload-artifact@v4
       #   with:
       #     name: PokéDesktop-macos
-      #     path: ${{ env.EXPORT_ROOT }}/macos/*
+      #     path: ${{ env.EXPORT_ROOT }}/PokéDesktop-macos.zip
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
           name: PokéDesktop-linux
-          path: ${{ env.EXPORT_ROOT }}/linux/*
+          path: ${{ env.EXPORT_ROOT }}/PokéDesktop-linux.zip
 
       # --- Create & Publish Release + Upload assets ---
       - name: Create GitHub Release and upload assets
@@ -126,6 +139,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            ${{ env.EXPORT_ROOT }}/windows/*
-            ${{ env.EXPORT_ROOT }}/linux/*
-            ${{ env.EXPORT_ROOT }}/macos/*
+            ${{ env.EXPORT_ROOT }}/*
