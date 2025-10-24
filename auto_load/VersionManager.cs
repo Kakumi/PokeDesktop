@@ -22,10 +22,10 @@ public partial class VersionManager : Node
 
         Dialog.Confirmed += Dialog_Confirmed;
 
-        CurrentVersion = Assembly
+        CurrentVersion = (Assembly
             .GetExecutingAssembly()
             .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-            ?.InformationalVersion ?? "0.0.0";
+            ?.InformationalVersion ?? "0.0.0").Substring(0, 5);
 
         Logger.Instance.Debug($"App version: {CurrentVersion}");
 
