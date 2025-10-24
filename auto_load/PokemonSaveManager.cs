@@ -47,7 +47,9 @@ public partial class PokemonSaveManager : Node
             return;
         }
 
-        _currentSav = SaveUtil.GetSaveFile(path);
+        _currentSav = SaveUtil.GetVariantSAV(path);
+        //NET 9
+        //_currentSav = SaveUtil.GetSaveFile(path);
         if (_currentSav == null)
         {
             Logger.Instance.Error(TranslationServer.Translate("ERROR_INVALID_SAVE_FILE"));

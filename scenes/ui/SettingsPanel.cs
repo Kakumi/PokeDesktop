@@ -87,8 +87,18 @@ public partial class SettingsPanel : VBoxContainer
     private void InitLanguages(Settings settings)
     {
         var appLanguages = TranslationServer.GetLoadedLocales();
-        var supportedLanguages = GameLanguage.AllSupportedLanguages.ToArray()
-            .Where(x => appLanguages.Contains(x));
+        var supportedLanguages = new List<string>();
+        for (int i = 0; i < GameLanguage.LanguageCount; i++)
+        {
+            var lang = GameLanguage.LanguageCode(i);
+            if (appLanguages.Contains(lang))
+            {
+                supportedLanguages.Add(lang);
+            }
+        }
+        //NET 9
+        //var supportedLanguages = GameLanguage.AllSupportedLanguages.ToArray()
+        //    .Where(x => appLanguages.Contains(x));
 
         var languages = supportedLanguages
             .Select(x => new { Id = GameLanguage.GetLanguageIndex(x), Locale = TranslationServer.Translate("LANG_" + x) });
@@ -183,7 +193,10 @@ public partial class SettingsPanel : VBoxContainer
 
     private bool TrySaveFile(string path)
     {
-        if (SaveUtil.TryGetSaveFile(path, out var save))
+        var save = SaveUtil.GetVariantSAV(path);
+        //NET 9
+        // if (SaveUtil.TryGetSaveFile(path, out var save))
+        if (save != null)
         {
             ErrorLabel.Visible = false;
             SuccessLabel.Text = string.Format(TranslationServer.Translate("WELCOME_TRAINER"), save.OT);

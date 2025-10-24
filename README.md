@@ -39,7 +39,7 @@ Using your game save (compatible up to **Pokémon Scarlet/Violet**), your Pokém
 
 ## <a name="dependencies"></a>🧱 Dependencies
 
-- **.NET 9**  
+- **.NET 8**  
 - **Godot Engine 4.5 (C# support enabled)**  
 - **PKHeX.Core** (for reading/saving player save data)
 

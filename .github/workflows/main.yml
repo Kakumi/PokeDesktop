@@ -55,55 +55,65 @@ jobs:
           
       - name: Check .NET SDK
         run: dotnet --info || true
-
-      - name: Install .NET 9 SDK (in container)
-        run: |
-          set -eux
-          apt-get update
-          apt-get install -y wget apt-transport-https gnupg
-          wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb
-          dpkg -i packages-microsoft-prod.deb
-          apt-get update
-          apt-get install -y dotnet-sdk-9.0
-          dotnet --info
+        
+      #- name: Install .NET 9 SDK (in container)
+      #  run: |
+      #    set -eux
+      #    apt-get update
+      #    apt-get install -y wget apt-transport-https gnupg
+      #    wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb
+      #    dpkg -i packages-microsoft-prod.deb
+      #    apt-get update
+      #    apt-get install -y dotnet-sdk-9.0
+      #    dotnet --info
 
       # --- Exports ---
       - name: Export Windows (release)
         run: |
           godot --headless --verbose --path "${PROJECT_DIR}" \
             --export-release "${WINDOWS_PRESET}" \
-            "${EXPORT_ROOT}/windows/pokedesktop-${{steps.get-version.outputs.version-prefix}}.exe"
+            "${EXPORT_ROOT}/windows/PokéDesktop.exe"
 
       # Décommente si tu veux aussi macOS :
       # - name: Export macOS (release)
       #   run: |
       #     godot --headless --verbose --path "${PROJECT_DIR}" \
       #       --export-release "${MACOS_PRESET}" \
-      #       "${EXPORT_ROOT}/macos/pokedesktop-${{steps.get-version.outputs.version-prefix}}.zip"
+      #       "${EXPORT_ROOT}/macos/PokéDesktop-macos.zip"
 
       - name: Export Linux (release)
         run: |
           godot --headless --verbose --path "${PROJECT_DIR}" \
             --export-release "${LINUX_PRESET}" \
-            "${EXPORT_ROOT}/linux/pokedesktop-${{steps.get-version.outputs.version-prefix}}.x86_64"
+            "${EXPORT_ROOT}/linux/PokéDesktop-linux.x86_64"
+            
+      # --- Lister pour vérifier la présence du dossier data_* ---
+      - name: List export outputs
+        run: |
+          echo "Windows:"
+          ls -laR "${EXPORT_ROOT}/windows" || true
+          echo "macOS:"
+          ls -laR "${EXPORT_ROOT}/macos" || true
+          echo "Linux:"
+          ls -laR "${EXPORT_ROOT}/linux" || true
 
       # --- Upload des artifacts de build (CI) ---
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: windows-${{steps.get-version.outputs.version-prefix}}
+          name: PokéDesktop
           path: ${{ env.EXPORT_ROOT }}/windows/*
 
       # - name: Upload macOS artifact
       #   uses: actions/upload-artifact@v4
       #   with:
-      #     name: macos-${{steps.get-version.outputs.version-prefix}}
+      #     name: PokéDesktop-macos
       #     path: ${{ env.EXPORT_ROOT }}/macos/*
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
-          name: linux-${{steps.get-version.outputs.version-prefix}}
+          name: PokéDesktop-linux
           path: ${{ env.EXPORT_ROOT }}/linux/*
 
       # --- Create & Publish Release + Upload assets ---
