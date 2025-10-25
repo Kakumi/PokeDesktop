@@ -11,6 +11,7 @@ public partial class PokemonInstance : VBoxContainer
 
     private MovementType _movementType = MovementType.None;
     private PokemonSpriteCache _spriteCache;
+    private PokemonCriesHandler _criesHandler;
     private EmotionHandler _emotionHandler;
     private BaseMovement _movement;
 
@@ -21,10 +22,33 @@ public partial class PokemonInstance : VBoxContainer
         PokemonSprite = GetNodeOrNull<TextureRect>("PokemonSprite");
 
         _spriteCache = GetNodeOrNull<PokemonSpriteCache>("PokemonSpriteCache");
+        _criesHandler = GetNodeOrNull<PokemonCriesHandler>("PokemonCriesHandler");
         _emotionHandler = GetNodeOrNull<EmotionHandler>("EmotionHandler");
 
         _spriteCache.TextureReady += _spriteCache_TextureReady;
         _spriteCache.TextureFailed += _spriteCache_TextureFailed;
+        _emotionHandler.EmotionAppeared += _emotionHandler_EmotionAppeared;
+        PokemonSprite.GuiInput += PokemonSprite_GuiInput;
+    }
+
+    private void PokemonSprite_GuiInput(InputEvent @event)
+    {
+        if (
+            @event is InputEventMouseButton mouseButton &&
+            mouseButton.ButtonIndex == MouseButton.Left &&
+            SettingsManager.Instance.Settings.CriesOnClick
+        )
+        {
+            _criesHandler.PlayCry();
+        }
+    }
+
+    private void _emotionHandler_EmotionAppeared(int emotionId)
+    {
+        if (SettingsManager.Instance.Settings.CriesOnEmotion)
+        {
+            _criesHandler.PlayCry();
+        }
     }
 
     private void _spriteCache_TextureFailed(string error)
@@ -41,6 +65,7 @@ public partial class PokemonInstance : VBoxContainer
     {
         _emotionHandler.Init(pokemon);
         _spriteCache.LoadOrDownloadTexture(pokemon.Pokemon, SettingsManager.Instance.Settings.AnimatedSprites);
+        _criesHandler.LoadOrDownloadSound(pokemon.Pokemon);
 
         if (SettingsManager.Instance.Settings.ShowName)
         {

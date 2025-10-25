@@ -16,9 +16,14 @@ public partial class PokemonWindow : Window
         CurrentScreen = GetScreen();
     }
 
+    private Vector2 GetCombinedMinimumSize()
+    {
+        return Instance.GetCombinedMinimumSize() * ContentScaleFactor;
+    }
+
     private void Instance_MinimumSizeChanged()
     {
-        var size = Instance.GetCombinedMinimumSize();
+        var size = GetCombinedMinimumSize();
         Size = new Vector2I((int)size.X, (int)size.Y);
         Position = new Vector2I(Position.X, GetWindowDefaultPosition().Y - Instance?.GetOffsetY() ?? 0);
     }
@@ -29,7 +34,7 @@ public partial class PokemonWindow : Window
     public Vector2I GetWindowUsable()
     {
         Rect2I usable = DisplayServer.ScreenGetUsableRect(GetScreen());
-        return new Vector2I(usable.Position.X, usable.End.X - (int)Instance.GetCombinedMinimumSize().X);
+        return new Vector2I(usable.Position.X, usable.End.X - (int)GetCombinedMinimumSize().X);
     }
 
     private int GetScreen()
@@ -50,7 +55,7 @@ public partial class PokemonWindow : Window
         Rect2I usable = DisplayServer.ScreenGetUsableRect(screen);
         var taskbarHeight = screenSize.Y - (usable.Position.Y + usable.Size.Y);
 
-        var ceilSize = Instance.GetCombinedMinimumSize().Ceil();
+        var ceilSize = GetCombinedMinimumSize().Ceil();
         var frameSize = new Vector2I((int)ceilSize.X, (int)ceilSize.Y);
 
         if (_defaultPosX == -1)
@@ -69,6 +74,7 @@ public partial class PokemonWindow : Window
         TransparentBg = false;
 #endif
         Instance.Init(pokemon, this);
+        ContentScaleFactor = (float)SettingsManager.Instance.Settings.PokemonScale;
 
         Position = GetWindowDefaultPosition();
     }

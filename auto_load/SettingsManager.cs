@@ -91,5 +91,19 @@ public partial class SettingsManager : Node
             TranslationServer.SetLocale(Settings.Language);
             GameInfo.Strings = GameInfo.GetStrings(Settings.Language);
         }
+
+        float linear = Settings.CriesVolume / 100f;
+        //To avoid log(0) we manually set -80f which is zero sound in godot
+        float db = (linear <= 0.001f) ? -80f : Mathf.LinearToDb(linear);
+
+        int busIndex = AudioServer.GetBusIndex("Cries");
+        if (busIndex == -1)
+        {
+            Logger.Instance.Debug("'Cries' bus not found !");
+        }
+        else
+        {
+            AudioServer.SetBusVolumeDb(busIndex, db);
+        }
     }
 }

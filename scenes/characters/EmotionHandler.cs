@@ -16,6 +16,8 @@ public partial class EmotionHandler : Node
     [Export(PropertyHint.Range, "0,255,1")] public byte FriendshipValue { get; set; } = 3;
     [Export(PropertyHint.Range, "0,255,1")] public byte FriendshipGiftValue { get; set; } = 5;
 
+    [Signal] public delegate void EmotionAppearedEventHandler(int emotionId);
+
     public Timer ClearTimer { get; private set; }
     public RandomTimer EmotionTimer { get; private set; }
 
@@ -32,6 +34,8 @@ public partial class EmotionHandler : Node
         Bubble.Visible = false;
         Bubble.Pressed += Bubble_Pressed;
 
+        EmotionTimer.MinTimerSeconds = SettingsManager.Instance.Settings.MinEmotionSeconds;
+        EmotionTimer.MaxTimerSeconds = SettingsManager.Instance.Settings.MaxEmotionSeconds;
         EmotionTimer.Timeout += EmotionTimer_Timeout;
         ClearTimer.Timeout += ClearTimer_Timeout;
 
@@ -147,6 +151,7 @@ public partial class EmotionHandler : Node
             _currentEmotion = type;
             Bubble.TextureNormal = emotion.Texture;
             Bubble.Visible = true;
+            EmitSignal(SignalName.EmotionAppeared, (int)type);
         }
         else
         {

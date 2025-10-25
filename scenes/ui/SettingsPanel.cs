@@ -9,6 +9,7 @@ public partial class SettingsPanel : VBoxContainer
     public Label PathLabel { get; private set; }
     public Label ErrorLabel { get; private set; }
     public Label SuccessLabel { get; private set; }
+    public Label CriesVolumeSliderLabel { get; private set; }
 
     public OptionButton ScreensBox { get; private set; }
     public OptionButton LanguagesBox { get; private set; }
@@ -20,15 +21,22 @@ public partial class SettingsPanel : VBoxContainer
     public CheckButton DropItem { get; private set; }
     public CheckButton ShowEmotion { get; private set; }
     public CheckButton AnimatedSprites { get; private set; }
+    public CheckButton CriesOnEmotion { get; private set; }
+    public CheckButton CriesOnClick { get; private set; }
+    public SpinBox MinEmotionSeconds { get; private set; }
+    public SpinBox MaxEmotionSeconds { get; private set; }
     public SpinBox MaxVisible { get; private set; }
+    public SpinBox PokemonScale { get; private set; }
+    public Slider CriesVolumeSlider { get; private set; }
     public Button SaveButton { get; private set; }
 
     public override void _Ready()
     {
-        var settingsContainer = GetNode("SettingsContainer");
+        var settingsContainer = GetNode("ScrollContainer/SettingsContainer");
         PathLabel = settingsContainer.GetNode<Label>("SavePath/HBoxContainer/Path");
         ErrorLabel = settingsContainer.GetNode<Label>("SavePath/HBoxContainer/ErrorLabel");
         SuccessLabel = settingsContainer.GetNode<Label>("SavePath/HBoxContainer/SuccessLabel");
+        CriesVolumeSliderLabel = settingsContainer.GetNode<Label>("CriesVolume/CriesVolumeSliderLabel");
 
         ScreensBox = settingsContainer.GetNode<OptionButton>("Screen/ScreensBox");
         LanguagesBox = settingsContainer.GetNode<OptionButton>("Language/LanguagesBox");
@@ -40,21 +48,31 @@ public partial class SettingsPanel : VBoxContainer
         DropItem = settingsContainer.GetNode<CheckButton>("DropItem");
         ShowEmotion = settingsContainer.GetNode<CheckButton>("ShowEmotion");
         AnimatedSprites = settingsContainer.GetNode<CheckButton>("AnimatedSprites");
-        MaxVisible = settingsContainer.GetNode<SpinBox>("HBoxContainer/MaxVisible");
+        CriesOnEmotion = settingsContainer.GetNode<CheckButton>("CriesOnEmotion");
+        CriesOnClick = settingsContainer.GetNode<CheckButton>("CriesOnClick");
+        MinEmotionSeconds = settingsContainer.GetNode<SpinBox>("EmotionTimer/MinEmotionSeconds");
+        MaxEmotionSeconds = settingsContainer.GetNode<SpinBox>("EmotionTimer/MaxEmotionSeconds");
+        MaxVisible = settingsContainer.GetNode<SpinBox>("PokemonAmount/MaxVisible");
+        PokemonScale = settingsContainer.GetNode<SpinBox>("PokemonScale/PokemonScale");
+        CriesVolumeSlider = settingsContainer.GetNode<Slider>("CriesVolume/CriesVolumeSlider");
         SaveButton = GetNode<Button>("SaveButton");
 
         OpenSaveFileButton.Pressed += OpenSaveFileButton_Pressed;
         ScreensBox.ItemSelected += ScreensBox_ItemSelected;
         LanguagesBox.ItemSelected += LanguagesBox_ItemSelected;
         MaxVisible.ValueChanged += MaxVisible_ValueChanged;
+        PokemonScale.ValueChanged += PokemonScale_ValueChanged;
         SaveButton.Pressed += SaveButton_Pressed;
         ShowName.Pressed += ShowName_Pressed;
         SmartMove.Pressed += SmartMove_Pressed;
         DropMoney.Pressed += DropMoney_Pressed;
         DropItem.Pressed += DropItem_Pressed;
         ShowEmotion.Pressed += ShowEmotion_Pressed;
+        CriesOnEmotion.Pressed += UseRandomCries_Pressed;
+        CriesOnClick.Pressed += CriesOnClick_Pressed;
         AnimatedSprites.Pressed += AnimatedSprites_Pressed;
         FileDialog.FileSelected += FileDialog_FileSelected;
+        CriesVolumeSlider.ValueChanged += CriesVolumeSlider_ValueChanged;
 
         ErrorLabel.Visible = false;
         SuccessLabel.Visible = false;
@@ -67,13 +85,24 @@ public partial class SettingsPanel : VBoxContainer
         var settings = SettingsManager.Instance.Settings;
 
         PathLabel.Text = settings.SaveFilePath;
+        CriesVolumeSliderLabel.Text = string.Format(TranslationServer.Translate("SETTINGS_CRIES_VOLUME_PRC"), settings.CriesVolume);
+
         ShowName.ButtonPressed = settings.ShowName;
         SmartMove.ButtonPressed = settings.SmartMove;
         DropMoney.ButtonPressed = settings.DropMoney;
         DropItem.ButtonPressed = settings.DropItem;
         ShowEmotion.ButtonPressed = settings.ShowEmotion;
         AnimatedSprites.ButtonPressed = settings.AnimatedSprites;
+        CriesOnEmotion.ButtonPressed = settings.CriesOnEmotion;
+        CriesOnClick.ButtonPressed = settings.CriesOnClick;
         MaxVisible.Value = settings.MaxVisible;
+        PokemonScale.Value = settings.PokemonScale;
+        CriesVolumeSlider.Value = settings.CriesVolume;
+        MinEmotionSeconds.Value = settings.MinEmotionSeconds;
+        MaxEmotionSeconds.Value = settings.MaxEmotionSeconds;
+
+        MaxEmotionSeconds.MinValue = settings.MinEmotionSeconds;
+        MinEmotionSeconds.MaxValue = settings.MaxEmotionSeconds;
 
         if (settings.SaveFilePath != null)
         {
@@ -157,6 +186,27 @@ public partial class SettingsPanel : VBoxContainer
     private void ShowName_Pressed()
     {
         SettingsManager.Instance.Settings.ShowName = ShowName.ButtonPressed;
+    }
+
+    private void UseRandomCries_Pressed()
+    {
+        SettingsManager.Instance.Settings.CriesOnEmotion = CriesOnEmotion.ButtonPressed;
+    }
+
+    private void CriesOnClick_Pressed()
+    {
+        SettingsManager.Instance.Settings.CriesOnClick = CriesOnClick.ButtonPressed;
+    }
+
+    private void CriesVolumeSlider_ValueChanged(double value)
+    {
+        SettingsManager.Instance.Settings.CriesVolume = (int)Math.Clamp(value, 0, 100);
+        CriesVolumeSliderLabel.Text = string.Format(TranslationServer.Translate("SETTINGS_CRIES_VOLUME_PRC"), value);
+    }
+
+    private void PokemonScale_ValueChanged(double value)
+    {
+        SettingsManager.Instance.Settings.PokemonScale = value;
     }
 
     private void ScreensBox_ItemSelected(long index)

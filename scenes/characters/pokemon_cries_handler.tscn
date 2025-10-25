@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu500lkwk6vml"]
+
+[ext_resource type="Script" uid="uid://qyumojji7jc4" path="res://scenes/characters/PokemonCriesHandler.cs" id="1_l1p6r"]
+
+[node name="PokemonCriesHandler" type="Node"]
+script = ExtResource("1_l1p6r")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Cries"

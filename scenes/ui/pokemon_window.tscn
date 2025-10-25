@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cpoii0vxe4hh2"]
+[gd_scene load_steps=13 format=3 uid="uid://cpoii0vxe4hh2"]
 
 [ext_resource type="Script" uid="uid://x4oesa2ywfif" path="res://scenes/ui/PokemonWindow.cs" id="1_35qis"]
 [ext_resource type="Script" uid="uid://dsp8cchwl4r08" path="res://scenes/ui/PokemonInstance.cs" id="2_ekw0f"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bidtguqs3wgmk" path="res://scenes/characters/emotion_handler.tscn" id="6_tyn2u"]
 [ext_resource type="Resource" uid="uid://cxw86nbpt2idx" path="res://resources/movements/swim_movement.tres" id="7_5ex0g"]
 [ext_resource type="Resource" uid="uid://d3qvpktvwugen" path="res://resources/movements/bouncing_movement.tres" id="8_yygtg"]
+[ext_resource type="PackedScene" uid="uid://bu500lkwk6vml" path="res://scenes/characters/pokemon_cries_handler.tscn" id="12_5ex0g"]
 
 [node name="PokemonWindow" type="Window"]
 transparent_bg = true
@@ -52,3 +53,5 @@ stretch_mode = 5
 
 [node name="EmotionHandler" parent="View" node_paths=PackedStringArray("Bubble") instance=ExtResource("6_tyn2u")]
 Bubble = NodePath("../EmojiButton")
+
+[node name="PokemonCriesHandler" parent="View" instance=ExtResource("12_5ex0g")]

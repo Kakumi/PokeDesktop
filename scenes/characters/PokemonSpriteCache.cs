@@ -78,7 +78,7 @@ public partial class PokemonSpriteCache : Node
         var err = req.Request(url);
         if (err != Error.Ok)
         {
-            EmitSignal(SignalName.TextureFailed, $"Error while downloading sprite: {err} ({url})");
+            EmitSignal(SignalName.TextureFailed, string.Format(TranslationServer.Translate("CACHE_SPRITE_REQUEST_FAILED"), err, url));
         }
     }
 
@@ -86,12 +86,18 @@ public partial class PokemonSpriteCache : Node
     {
         if (responseCode < 200 || responseCode >= 300)
         {
-            EmitSignal(SignalName.TextureFailed, $"Download failed: result={result}, code={responseCode}");
+            EmitSignal(SignalName.TextureFailed, string.Format(TranslationServer.Translate("CACHE_SPRITE_DOWNLOAD_FAILED"), result, responseCode));
         }
 
-        using (var fa = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Write))
+        try
         {
+            using var fa = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Write);
             fa.StoreBuffer(body);
+        }
+        catch (Exception e)
+        {
+            EmitSignal(SignalName.TextureFailed, string.Format(TranslationServer.Translate("CACHE_SPRITE_SAVE_FAILED"), e.Message));
+            return;
         }
 
         var texture = LoadTextureFromFile(path, isGif);
@@ -101,7 +107,7 @@ public partial class PokemonSpriteCache : Node
         }
         else
         {
-            EmitSignal(SignalName.TextureFailed, $"Download failed: result={result}, code={responseCode}");
+            EmitSignal(SignalName.TextureFailed, string.Format(TranslationServer.Translate("CACHE_SPRITE_DOWNLOAD_FAILED"), result, responseCode));
         }
     }
 

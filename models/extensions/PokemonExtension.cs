@@ -86,11 +86,17 @@ public static class PokemonExtension
             Species.Gyarados, Species.Mantine
         };
 
+        var FORCE_WALKERS = new HashSet<Species>
+        {
+            Species.Corphish, Species.Crawdaunt
+        };
+
         if (TELEPORTERS.Contains(sp)) return MovementType.Teleport;
         if (DIGGERS.Contains(sp)) return MovementType.Dig;
         if (SWIM.Contains(sp)) return MovementType.Swim;
         if (HOVERERS.Contains(sp)) return MovementType.Fly;
         if (BOUNCERS.Contains(sp)) return MovementType.Bouncing;
+        if (FORCE_WALKERS.Contains(sp)) return MovementType.Walk;
 
         if (HasType(pokemon, MoveType.Flying))
             return MovementType.Fly;

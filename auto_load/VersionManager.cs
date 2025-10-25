@@ -29,7 +29,9 @@ public partial class VersionManager : Node
 
         Logger.Instance.Debug($"App version: {CurrentVersion}");
 
+#if !DEBUG
         GetGithubLatestRelease();
+#endif
     }
 
     private void Dialog_Confirmed()

@@ -12,6 +12,14 @@ SETTINGS_SAVE,Save,Sauvegarder
 SETTINGS_ANIMATED_SPRITES,Use animated sprites (Pokémon Showdown) instead of pixelart sprites,Utiliser des sprites animés (Pokémon Showdown) au lieu des sprites pixelart
 SETTINGS_INVALID_SAVE_FILE,Your save file is not supported. Please use a save from original pokémon games.,Votre fichier de sauvegarde n'est pas pris en charge. Veuillez utiliser une sauvegarde provenant des jeux Pokémon originaux.
 SETTINGS_WELCOME_SAVE_FILE,Valid save file ! Welcome {0} !,Sauvegarde valide ! Bienvenue {0} !
+SETTINGS_CRIES_ON_CLICK,Pokémon emit cries when you click on them,Les Pokémon émettent des cris lorsque vous cliquez dessus
+SETTINGS_CRIES_ON_EMOTION,Pokémon emit cries when they feel an emotion.,Les Pokémon émettent des cris lorsqu'ils ressentent une émotion
+SETTINGS_MIN,min,min
+SETTINGS_MAX,max,max
+SETTINGS_EMOTION_TIMER,Waiting time between the appearance of emotion bubbles (in seconds),Temps d'attente entre l'apparition des bulles d'émotions (en secondes)
+SETTINGS_CRIES_VOLUME,Volume of Pokémon cries,Volume des cris des Pokémon
+SETTINGS_CRIES_VOLUME_PRC,{0}%,{0}%
+SETTINGS_SCALE,Pokemon scale,Échelle (scale) des pokémons
 LANG_fr,Français,Français
 LANG_en,English,English
 TAB_SETTINGS,Settings,Paramètres
@@ -34,3 +42,6 @@ APP_UPDATE_MESSAGE,Version {0} is available. Would you like to download it?,La v
 APP_UPDATE_LOG,New version {0} is available. Download it now to unlock more features and bug fixes!,Nouvelle version {0} est disponible. Téléchargez-la dès maintenant pour bénéficier de nouvelles fonctionnalités et de corrections de bugs !
 ERROR_PARSING_RESPONSE,Unable to deserialise the release response,Impossible de désérialisé la réponse de la release
 MONITOR,Screen {0},Écran {0}
+CACHE_SPRITE_DOWNLOAD_FAILED,"Download failed: result={0}, code={1}",
+CACHE_SPRITE_SAVE_FAILED,Error saving file on disk message={0},
+CACHE_SPRITE_REQUEST_FAILED,Error while trying to get sprite: {0} ({1}),

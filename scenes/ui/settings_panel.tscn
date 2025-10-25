@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbrpbo48wxdcf"]
+[gd_scene load_steps=4 format=3 uid="uid://cbrpbo48wxdcf"]
 
 [ext_resource type="Texture2D" uid="uid://8pwnkdwveml8" path="res://assets/images/folder-open-solid-full.svg" id="1_dbor5"]
+[ext_resource type="Script" uid="uid://k2npfhhi1kw3" path="res://scenes/ui/SettingsPanel.cs" id="1_qm286"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5cxw"]
 content_margin_left = 8.0
@@ -15,50 +16,56 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qm286")
 
-[node name="SettingsContainer" type="VBoxContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Screen" type="HBoxContainer" parent="SettingsContainer"]
+[node name="SettingsContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Screen" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingsContainer/Screen"]
+[node name="Label" type="Label" parent="ScrollContainer/SettingsContainer/Screen"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SETTINGS_SCREEN"
 
-[node name="ScreensBox" type="OptionButton" parent="SettingsContainer/Screen"]
+[node name="ScreensBox" type="OptionButton" parent="ScrollContainer/SettingsContainer/Screen"]
 layout_mode = 2
 
-[node name="Language" type="HBoxContainer" parent="SettingsContainer"]
+[node name="Language" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingsContainer/Language"]
+[node name="Label" type="Label" parent="ScrollContainer/SettingsContainer/Language"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SETTINGS_LANGUAGE"
 
-[node name="LanguagesBox" type="OptionButton" parent="SettingsContainer/Language"]
+[node name="LanguagesBox" type="OptionButton" parent="ScrollContainer/SettingsContainer/Language"]
 layout_mode = 2
 
-[node name="SavePath" type="HBoxContainer" parent="SettingsContainer"]
+[node name="SavePath" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="VBoxContainer" parent="SettingsContainer/SavePath"]
+[node name="HBoxContainer" type="VBoxContainer" parent="ScrollContainer/SettingsContainer/SavePath"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
+[node name="Label2" type="Label" parent="ScrollContainer/SettingsContainer/SavePath/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SETTINGS_SAVE_PATH"
 
-[node name="Path" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
+[node name="Path" type="Label" parent="ScrollContainer/SettingsContainer/SavePath/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_f5cxw")
 
-[node name="ErrorLabel" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
+[node name="ErrorLabel" type="Label" parent="ScrollContainer/SettingsContainer/SavePath/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 0, 0, 1)
@@ -66,7 +73,7 @@ text = "SETTINGS_INVALID_SAVE_FILE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SuccessLabel" type="Label" parent="SettingsContainer/SavePath/HBoxContainer"]
+[node name="SuccessLabel" type="Label" parent="ScrollContainer/SettingsContainer/SavePath/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 1, 0, 1)
@@ -74,62 +81,128 @@ text = "SETTINGS_INVALID_SAVE_FILE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FileDialog" type="FileDialog" parent="SettingsContainer/SavePath"]
+[node name="FileDialog" type="FileDialog" parent="ScrollContainer/SettingsContainer/SavePath"]
 title = "Open a File"
 file_mode = 0
 access = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsContainer/SavePath"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/SettingsContainer/SavePath"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="OpenSaveFileButton" type="TextureButton" parent="SettingsContainer/SavePath/MarginContainer"]
+[node name="OpenSaveFileButton" type="TextureButton" parent="ScrollContainer/SettingsContainer/SavePath/MarginContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture_normal = ExtResource("1_dbor5")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="ShowName" type="CheckButton" parent="SettingsContainer"]
+[node name="ShowName" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 text = "SETTINGS_SHOW_NAME"
 
-[node name="SmartMove" type="CheckButton" parent="SettingsContainer"]
+[node name="SmartMove" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 text = "SETTINGS_SMART_MOVE"
 
-[node name="DropMoney" type="CheckButton" parent="SettingsContainer"]
+[node name="DropMoney" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 text = "SETTINGS_DROP_MONEY"
 
-[node name="DropItem" type="CheckButton" parent="SettingsContainer"]
+[node name="DropItem" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 text = "SETTINGS_DROP_ITEM"
 
-[node name="ShowEmotion" type="CheckButton" parent="SettingsContainer"]
+[node name="ShowEmotion" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 text = "SETTINGS_SHOW_EMOTION"
 
-[node name="AnimatedSprites" type="CheckButton" parent="SettingsContainer"]
+[node name="AnimatedSprites" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 text = "SETTINGS_ANIMATED_SPRITES"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingsContainer"]
+[node name="CriesOnEmotion" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
+layout_mode = 2
+text = "SETTINGS_CRIES_ON_EMOTION"
+
+[node name="CriesOnClick" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
+layout_mode = 2
+text = "SETTINGS_CRIES_ON_CLICK"
+
+[node name="EmotionTimer" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingsContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/SettingsContainer/EmotionTimer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_EMOTION_TIMER"
+
+[node name="MinLabel" type="Label" parent="ScrollContainer/SettingsContainer/EmotionTimer"]
+layout_mode = 2
+text = "SETTINGS_MIN"
+
+[node name="MinEmotionSeconds" type="SpinBox" parent="ScrollContainer/SettingsContainer/EmotionTimer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 2000.0
+value = 1.0
+
+[node name="MaxLabel" type="Label" parent="ScrollContainer/SettingsContainer/EmotionTimer"]
+layout_mode = 2
+text = "SETTINGS_MAX"
+
+[node name="MaxEmotionSeconds" type="SpinBox" parent="ScrollContainer/SettingsContainer/EmotionTimer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 2000.0
+value = 1.0
+
+[node name="PokemonAmount" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/SettingsContainer/PokemonAmount"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SETTINGS_MAX_VISIBLE"
 
-[node name="MaxVisible" type="SpinBox" parent="SettingsContainer/HBoxContainer"]
+[node name="MaxVisible" type="SpinBox" parent="ScrollContainer/SettingsContainer/PokemonAmount"]
 layout_mode = 2
 min_value = 1.0
 max_value = 6.0
 value = 1.0
+
+[node name="PokemonScale" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/SettingsContainer/PokemonScale"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_SCALE"
+
+[node name="PokemonScale" type="SpinBox" parent="ScrollContainer/SettingsContainer/PokemonScale"]
+layout_mode = 2
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 0.1
+
+[node name="CriesVolume" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/SettingsContainer/CriesVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_CRIES_VOLUME"
+
+[node name="CriesVolumeSlider" type="HSlider" parent="ScrollContainer/SettingsContainer/CriesVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CriesVolumeSliderLabel" type="Label" parent="ScrollContainer/SettingsContainer/CriesVolume"]
+layout_mode = 2
 
 [node name="SaveButton" type="Button" parent="."]
 layout_mode = 2
