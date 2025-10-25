@@ -11,7 +11,7 @@ public partial class Settings : Resource
     [Export] public bool DropMoney { get; set; } = true;
     [Export] public bool DropItem { get; set; } = true;
     [Export] public bool ShowEmotion { get; set; } = true;
-    [Export] public bool AnimatedSprites { get; set; } = true;
+    [Export] public string SpriteSource { get; set; }
     [Export] public bool CriesOnEmotion { get; set; } = true;
     [Export] public bool CriesOnClick { get; set; } = true;
     [Export] public int MinEmotionSeconds { get; set; } = 180;

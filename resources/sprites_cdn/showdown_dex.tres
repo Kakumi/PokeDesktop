@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cwuii3pagr1qs"]
+
+[ext_resource type="Script" uid="uid://bqriempg3af44" path="res://models/resources/SpriteCdn.cs" id="1_ssx6m"]
+
+[resource]
+script = ExtResource("1_ssx6m")
+Name = "CDN_SHOWDOWN_DEX"
+Folder = "showdown-dex"
+NormalUrl = "https://play.pokemonshowdown.com/sprites/dex/{name}.png"
+ShinyUrl = "https://play.pokemonshowdown.com/sprites/dex-shiny/{name}.png"

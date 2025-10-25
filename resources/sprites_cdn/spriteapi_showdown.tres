@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bwpslkyn7ap36"]
+
+[ext_resource type="Script" uid="uid://bqriempg3af44" path="res://models/resources/SpriteCdn.cs" id="1_7jsnx"]
+
+[resource]
+script = ExtResource("1_7jsnx")
+Default = true
+Name = "CDN_SPRITEAPI_SHOWDOWN"
+Folder = "spriteapi-showdown"
+NormalUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/pokemon/other/showdown/{species}.gif"
+ShinyUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/pokemon/other/showdown/shiny/{species}.gif"

@@ -9,37 +9,25 @@ public partial class PokemonSpriteCache : Node
     [Signal] public delegate void TextureReadyEventHandler(Texture2D texture);
     [Signal] public delegate void TextureFailedEventHandler(string error);
 
-    private string GetPokemonFilename(PKM pkm)
+    private SpriteCdn _spriteSource;
+
+    public override void _Ready()
     {
-        return $"{pkm.Species}";
+        _spriteSource = SettingsManager.Instance.GetSpriteCDN();
     }
 
-    private string GetDownloadUrl(PKM pkm, bool isGif)
+    private string GetDownloadUrl(PKM pkm)
     {
-        var name = GetPokemonFilename(pkm);
         var isShiny = pkm.IsShiny(pkm.PID, pkm.Generation);
+        var url = isShiny ? _spriteSource.ShinyUrl : _spriteSource.NormalUrl;
+        var speciesNames = GameInfo.GetStrings("en").Species[pkm.Species].ToLower();
 
-        if (isGif)
-        {
-            if (isShiny)
-            {
-                return $"https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/pokemon/other/showdown/shiny/{name}.gif";
-            }
-
-            return $"https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/pokemon/other/showdown/{name}.gif";
-        }
-
-        if (isShiny)
-        {
-            return $"https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/pokemon/shiny/{name}.png";
-        }
-
-        return $"https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/pokemon/{name}.png";
+        return url.Replace("{species}", pkm.Species.ToString()).Replace("{name}", speciesNames);
     }
 
-    public void LoadOrDownloadTexture(PKM pkm, bool isGif)
+    public void LoadOrDownloadTexture(PKM pkm)
     {
-        var dirPath = "user://data/sprites";
+        var dirPath = $"user://data/sprites/{_spriteSource.Folder}";
         var isShiny = pkm.IsShiny(pkm.PID, pkm.Generation);
         if (isShiny)
         {
@@ -47,30 +35,31 @@ public partial class PokemonSpriteCache : Node
         }
         DirAccess.MakeDirRecursiveAbsolute(ProjectSettings.GlobalizePath(dirPath));
 
-        var filename = GetPokemonFilename(pkm);
-        var url = GetDownloadUrl(pkm, isGif);
-        var extension = isGif ? "gif" : "png";
+        var filename = $"{pkm.Species}";
+        var url = GetDownloadUrl(pkm);
+        var extension = Path.GetExtension(_spriteSource.NormalUrl).Substring(1);
+        var isAnimated = extension.Contains("gif");
         var filePath = $"{dirPath}/{filename}.{extension}";
 
         if (Godot.FileAccess.FileExists(filePath))
         {
-            var texture = LoadTextureFromFile(filePath, isGif);
+            var texture = LoadTextureFromFile(filePath, isAnimated);
             if (texture != null)
             {
                 EmitSignal(SignalName.TextureReady, texture);
             }
         }
 
-        StartDownload(filePath, isGif, url);
+        StartDownload(filePath, isAnimated, url);
     }
 
-    private void StartDownload(string filename, bool isGif, string url)
+    private void StartDownload(string filename, bool isAnimated, string url)
     {
         var req = new HttpRequest();
         req.RequestCompleted += (r, rc, h, b) =>
         {
             req.QueueFree();
-            Req_RequestCompleted(filename, isGif, r, rc, h, b);
+            Req_RequestCompleted(filename, isAnimated, r, rc, h, b);
         };
 
         AddChild(req);
@@ -82,11 +71,12 @@ public partial class PokemonSpriteCache : Node
         }
     }
 
-    private void Req_RequestCompleted(string path, bool isGif, long result, long responseCode, string[] headers, byte[] body)
+    private void Req_RequestCompleted(string path, bool isAnimated, long result, long responseCode, string[] headers, byte[] body)
     {
         if (responseCode < 200 || responseCode >= 300)
         {
             EmitSignal(SignalName.TextureFailed, string.Format(TranslationServer.Translate("CACHE_SPRITE_DOWNLOAD_FAILED"), result, responseCode));
+            return;
         }
 
         try
@@ -100,7 +90,7 @@ public partial class PokemonSpriteCache : Node
             return;
         }
 
-        var texture = LoadTextureFromFile(path, isGif);
+        var texture = LoadTextureFromFile(path, isAnimated);
         if (texture != null)
         {
             EmitSignal(SignalName.TextureReady, texture);
@@ -111,9 +101,9 @@ public partial class PokemonSpriteCache : Node
         }
     }
 
-    private Texture2D LoadTextureFromFile(string path, bool isGif)
+    private Texture2D LoadTextureFromFile(string path, bool isAnimated)
     {
-        if (isGif)
+        if (isAnimated)
         {
             var buffer = Godot.FileAccess.GetFileAsBytes(path);
             return LoadGifAsAnimatedTexture(buffer);

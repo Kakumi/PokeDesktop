@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bmmb31afpwao0"]
+
+[ext_resource type="Script" uid="uid://bqriempg3af44" path="res://models/resources/SpriteCdn.cs" id="1_vup2n"]
+
+[resource]
+script = ExtResource("1_vup2n")
+Name = "CDN_SHOWDOWN"
+Folder = "showdown"
+NormalUrl = "https://play.pokemonshowdown.com/sprites/ani/{name}.gif"
+ShinyUrl = "https://play.pokemonshowdown.com/sprites/ani-shiny/{name}.gif"

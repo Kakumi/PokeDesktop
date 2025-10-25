@@ -13,6 +13,7 @@ public partial class SettingsPanel : VBoxContainer
 
     public OptionButton ScreensBox { get; private set; }
     public OptionButton LanguagesBox { get; private set; }
+    public OptionButton SpriteSourceBox { get; private set; }
     public TextureButton OpenSaveFileButton { get; private set; }
     public FileDialog FileDialog { get; private set; }
     public CheckButton ShowName { get; private set; }
@@ -20,7 +21,6 @@ public partial class SettingsPanel : VBoxContainer
     public CheckButton DropMoney { get; private set; }
     public CheckButton DropItem { get; private set; }
     public CheckButton ShowEmotion { get; private set; }
-    public CheckButton AnimatedSprites { get; private set; }
     public CheckButton CriesOnEmotion { get; private set; }
     public CheckButton CriesOnClick { get; private set; }
     public SpinBox MinEmotionSeconds { get; private set; }
@@ -40,6 +40,7 @@ public partial class SettingsPanel : VBoxContainer
 
         ScreensBox = settingsContainer.GetNode<OptionButton>("Screen/ScreensBox");
         LanguagesBox = settingsContainer.GetNode<OptionButton>("Language/LanguagesBox");
+        SpriteSourceBox = settingsContainer.GetNode<OptionButton>("SpriteSource/SpriteSourceBox");
         FileDialog = settingsContainer.GetNode<FileDialog>("SavePath/FileDialog");
         OpenSaveFileButton = settingsContainer.GetNode<TextureButton>("SavePath/MarginContainer/OpenSaveFileButton");
         ShowName = settingsContainer.GetNode<CheckButton>("ShowName");
@@ -47,7 +48,6 @@ public partial class SettingsPanel : VBoxContainer
         DropMoney = settingsContainer.GetNode<CheckButton>("DropMoney");
         DropItem = settingsContainer.GetNode<CheckButton>("DropItem");
         ShowEmotion = settingsContainer.GetNode<CheckButton>("ShowEmotion");
-        AnimatedSprites = settingsContainer.GetNode<CheckButton>("AnimatedSprites");
         CriesOnEmotion = settingsContainer.GetNode<CheckButton>("CriesOnEmotion");
         CriesOnClick = settingsContainer.GetNode<CheckButton>("CriesOnClick");
         MinEmotionSeconds = settingsContainer.GetNode<SpinBox>("EmotionTimer/MinEmotionSeconds");
@@ -60,6 +60,7 @@ public partial class SettingsPanel : VBoxContainer
         OpenSaveFileButton.Pressed += OpenSaveFileButton_Pressed;
         ScreensBox.ItemSelected += ScreensBox_ItemSelected;
         LanguagesBox.ItemSelected += LanguagesBox_ItemSelected;
+        SpriteSourceBox.ItemSelected += SpriteSourceBox_ItemSelected;
         MaxVisible.ValueChanged += MaxVisible_ValueChanged;
         PokemonScale.ValueChanged += PokemonScale_ValueChanged;
         SaveButton.Pressed += SaveButton_Pressed;
@@ -70,7 +71,6 @@ public partial class SettingsPanel : VBoxContainer
         ShowEmotion.Pressed += ShowEmotion_Pressed;
         CriesOnEmotion.Pressed += UseRandomCries_Pressed;
         CriesOnClick.Pressed += CriesOnClick_Pressed;
-        AnimatedSprites.Pressed += AnimatedSprites_Pressed;
         FileDialog.FileSelected += FileDialog_FileSelected;
         CriesVolumeSlider.ValueChanged += CriesVolumeSlider_ValueChanged;
 
@@ -92,7 +92,6 @@ public partial class SettingsPanel : VBoxContainer
         DropMoney.ButtonPressed = settings.DropMoney;
         DropItem.ButtonPressed = settings.DropItem;
         ShowEmotion.ButtonPressed = settings.ShowEmotion;
-        AnimatedSprites.ButtonPressed = settings.AnimatedSprites;
         CriesOnEmotion.ButtonPressed = settings.CriesOnEmotion;
         CriesOnClick.ButtonPressed = settings.CriesOnClick;
         MaxVisible.Value = settings.MaxVisible;
@@ -111,6 +110,7 @@ public partial class SettingsPanel : VBoxContainer
 
         InitLanguages(settings);
         InitScreens(settings);
+        InitSpriteSources(settings);
     }
 
     private void InitLanguages(Settings settings)
@@ -158,9 +158,18 @@ public partial class SettingsPanel : VBoxContainer
         }
     }
 
-    private void AnimatedSprites_Pressed()
+    private void InitSpriteSources(Settings settings)
     {
-        SettingsManager.Instance.Settings.AnimatedSprites = AnimatedSprites.ButtonPressed;
+        var spriteCdns = SettingsManager.Instance.SpriteCdns.ToList();
+        for (int i = 0; i < spriteCdns.Count; i++)
+        {
+            var spriteCdn = spriteCdns[i];
+            SpriteSourceBox.AddItem(TranslationServer.Translate(spriteCdn.Name), i);
+            if (spriteCdn.Folder == settings.SpriteSource || (settings.SpriteSource == null && spriteCdn.Default))
+            {
+                SpriteSourceBox.Select(i);
+            }
+        }
     }
 
     private void ShowEmotion_Pressed()
@@ -225,6 +234,16 @@ public partial class SettingsPanel : VBoxContainer
         if (TranslationServer.GetLoadedLocales().Contains(newLang))
         {
             SettingsManager.Instance.Settings.Language = newLang;
+        }
+    }
+
+    private void SpriteSourceBox_ItemSelected(long index)
+    {
+        var spriteSourceIndex = SpriteSourceBox.GetItemId((int)index);
+        var spriteCdns = SettingsManager.Instance.SpriteCdns.ToList();
+        if (spriteSourceIndex < spriteCdns.Count)
+        {
+            SettingsManager.Instance.Settings.SpriteSource = spriteCdns[spriteSourceIndex].Folder;
         }
     }
 

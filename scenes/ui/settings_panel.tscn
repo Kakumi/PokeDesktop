@@ -49,6 +49,17 @@ text = "SETTINGS_LANGUAGE"
 [node name="LanguagesBox" type="OptionButton" parent="ScrollContainer/SettingsContainer/Language"]
 layout_mode = 2
 
+[node name="SpriteSource" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/SettingsContainer/SpriteSource"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_SPRITE_SOURCE"
+
+[node name="SpriteSourceBox" type="OptionButton" parent="ScrollContainer/SettingsContainer/SpriteSource"]
+layout_mode = 2
+
 [node name="SavePath" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 
@@ -119,10 +130,6 @@ text = "SETTINGS_DROP_ITEM"
 [node name="ShowEmotion" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 text = "SETTINGS_SHOW_EMOTION"
-
-[node name="AnimatedSprites" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
-layout_mode = 2
-text = "SETTINGS_ANIMATED_SPRITES"
 
 [node name="CriesOnEmotion" type="CheckButton" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2

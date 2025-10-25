@@ -64,7 +64,7 @@ public partial class PokemonInstance : VBoxContainer
     public void Init(PartyPokemon pokemon, PokemonWindow window)
     {
         _emotionHandler.Init(pokemon);
-        _spriteCache.LoadOrDownloadTexture(pokemon.Pokemon, SettingsManager.Instance.Settings.AnimatedSprites);
+        _spriteCache.LoadOrDownloadTexture(pokemon.Pokemon);
         _criesHandler.LoadOrDownloadSound(pokemon.Pokemon);
 
         if (SettingsManager.Instance.Settings.ShowName)

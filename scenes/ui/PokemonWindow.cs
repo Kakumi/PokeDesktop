@@ -24,8 +24,9 @@ public partial class PokemonWindow : Window
     private void Instance_MinimumSizeChanged()
     {
         var size = GetCombinedMinimumSize();
+        var usage = GetWindowUsable();
         Size = new Vector2I((int)size.X, (int)size.Y);
-        Position = new Vector2I(Position.X, GetWindowDefaultPosition().Y - Instance?.GetOffsetY() ?? 0);
+        Position = new Vector2I(Mathf.Min(Position.X, usage.Y), GetWindowDefaultPosition().Y - Instance?.GetOffsetY() ?? 0);
     }
 
     //Return :

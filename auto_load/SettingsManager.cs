@@ -5,6 +5,8 @@ using System.Linq;
 
 public partial class SettingsManager : Node
 {
+    [Export] public SpriteCdn[] SpriteCdns { get; set; }
+
     public static SettingsManager Instance { get; private set; }
     public Settings Settings { get; private set; }
 
@@ -69,6 +71,17 @@ public partial class SettingsManager : Node
             Logger.Instance.Error($"[SettingsManager] Fail loading settings file: {e.Message}");
             SaveSettings();
         }
+    }
+
+    public SpriteCdn GetSpriteCDN()
+    {
+        var found = SpriteCdns.FirstOrDefault(x => x.Folder == Settings.SpriteSource);
+        if (found == null)
+        {
+            return SpriteCdns.FirstOrDefault(x => x.Default);
+        }
+
+        return found;
     }
 
     public override void _EnterTree()

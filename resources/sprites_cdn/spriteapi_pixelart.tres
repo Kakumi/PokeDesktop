@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ch1a484s6w1bx"]
+
+[ext_resource type="Script" uid="uid://bqriempg3af44" path="res://models/resources/SpriteCdn.cs" id="1_62ula"]
+
+[resource]
+script = ExtResource("1_62ula")
+Name = "CDN_SPRITEAPI_PIXELART"
+Folder = "spriteapi-latest"
+NormalUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/pokemon/{species}.png"
+ShinyUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/pokemon/shiny/{species}.png"
