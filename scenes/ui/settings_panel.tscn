@@ -60,6 +60,17 @@ text = "SETTINGS_SPRITE_SOURCE"
 [node name="SpriteSourceBox" type="OptionButton" parent="ScrollContainer/SettingsContainer/SpriteSource"]
 layout_mode = 2
 
+[node name="CrySource" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/SettingsContainer/CrySource"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS_CRY_SOURCE"
+
+[node name="CrySourceBox" type="OptionButton" parent="ScrollContainer/SettingsContainer/CrySource"]
+layout_mode = 2
+
 [node name="SavePath" type="HBoxContainer" parent="ScrollContainer/SettingsContainer"]
 layout_mode = 2
 

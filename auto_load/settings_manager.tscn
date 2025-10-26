@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://5tcmk2yp6lp5"]
+[gd_scene load_steps=10 format=3 uid="uid://5tcmk2yp6lp5"]
 
 [ext_resource type="Script" uid="uid://vh1mejbsxe23" path="res://auto_load/SettingsManager.cs" id="1_wh7dc"]
 [ext_resource type="Resource" uid="uid://bmmb31afpwao0" path="res://resources/sprites_cdn/showdown.tres" id="2_y334t"]
@@ -6,7 +6,11 @@
 [ext_resource type="Resource" uid="uid://d4k7uoan8vjwo" path="res://resources/sprites_cdn/showdown_home.tres" id="4_ja28g"]
 [ext_resource type="Resource" uid="uid://ch1a484s6w1bx" path="res://resources/sprites_cdn/spriteapi_pixelart.tres" id="5_ketgs"]
 [ext_resource type="Resource" uid="uid://bwpslkyn7ap36" path="res://resources/sprites_cdn/spriteapi_showdown.tres" id="6_ykbt6"]
+[ext_resource type="Resource" uid="uid://ccu8y4ck348y0" path="res://resources/cries_cdn/criesapi_latest.tres" id="7_ketgs"]
+[ext_resource type="Resource" uid="uid://oifxoh32obfc" path="res://resources/cries_cdn/criesapi_legacy.tres" id="8_ykbt6"]
+[ext_resource type="Resource" uid="uid://dgii63sr407pt" path="res://resources/cries_cdn/showdown.tres" id="9_ewyr4"]
 
 [node name="SettingsManager" type="Node"]
 script = ExtResource("1_wh7dc")
 SpriteCdns = Array[Resource]([ExtResource("2_y334t"), ExtResource("3_aremn"), ExtResource("4_ja28g"), ExtResource("5_ketgs"), ExtResource("6_ykbt6")])
+CryCdns = Array[Resource]([ExtResource("7_ketgs"), ExtResource("8_ykbt6"), ExtResource("9_ewyr4")])

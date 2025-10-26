@@ -6,6 +6,7 @@ using System.Linq;
 public partial class SettingsManager : Node
 {
     [Export] public SpriteCdn[] SpriteCdns { get; set; }
+    [Export] public CriesCdn[] CryCdns { get; set; }
 
     public static SettingsManager Instance { get; private set; }
     public Settings Settings { get; private set; }
@@ -79,6 +80,17 @@ public partial class SettingsManager : Node
         if (found == null)
         {
             return SpriteCdns.FirstOrDefault(x => x.Default);
+        }
+
+        return found;
+    }
+
+    public CriesCdn GetCryCDN()
+    {
+        var found = CryCdns.FirstOrDefault(x => x.Folder == Settings.CrySource);
+        if (found == null)
+        {
+            return CryCdns.FirstOrDefault(x => x.Default);
         }
 
         return found;

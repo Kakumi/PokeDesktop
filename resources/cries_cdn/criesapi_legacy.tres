@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://oifxoh32obfc"]
+
+[ext_resource type="Script" uid="uid://bwa3cut1atkt0" path="res://models/resources/CriesCdn.cs" id="1_4jvpv"]
+
+[resource]
+script = ExtResource("1_4jvpv")
+Name = "CDN_CRIESAPI_LEGACY"
+Folder = "criesapi-legacy"
+Url = "https://github.com/PokeAPI/cries/raw/refs/heads/main/cries/pokemon/legacy/{species}.ogg"

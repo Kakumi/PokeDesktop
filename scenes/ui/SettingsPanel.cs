@@ -14,6 +14,7 @@ public partial class SettingsPanel : VBoxContainer
     public OptionButton ScreensBox { get; private set; }
     public OptionButton LanguagesBox { get; private set; }
     public OptionButton SpriteSourceBox { get; private set; }
+    public OptionButton CrySourceBox { get; private set; }
     public TextureButton OpenSaveFileButton { get; private set; }
     public FileDialog FileDialog { get; private set; }
     public CheckButton ShowName { get; private set; }
@@ -41,6 +42,7 @@ public partial class SettingsPanel : VBoxContainer
         ScreensBox = settingsContainer.GetNode<OptionButton>("Screen/ScreensBox");
         LanguagesBox = settingsContainer.GetNode<OptionButton>("Language/LanguagesBox");
         SpriteSourceBox = settingsContainer.GetNode<OptionButton>("SpriteSource/SpriteSourceBox");
+        CrySourceBox = settingsContainer.GetNode<OptionButton>("CrySource/CrySourceBox");
         FileDialog = settingsContainer.GetNode<FileDialog>("SavePath/FileDialog");
         OpenSaveFileButton = settingsContainer.GetNode<TextureButton>("SavePath/MarginContainer/OpenSaveFileButton");
         ShowName = settingsContainer.GetNode<CheckButton>("ShowName");
@@ -61,6 +63,7 @@ public partial class SettingsPanel : VBoxContainer
         ScreensBox.ItemSelected += ScreensBox_ItemSelected;
         LanguagesBox.ItemSelected += LanguagesBox_ItemSelected;
         SpriteSourceBox.ItemSelected += SpriteSourceBox_ItemSelected;
+        CrySourceBox.ItemSelected += CrySourceBox_ItemSelected;
         MaxVisible.ValueChanged += MaxVisible_ValueChanged;
         PokemonScale.ValueChanged += PokemonScale_ValueChanged;
         SaveButton.Pressed += SaveButton_Pressed;
@@ -111,6 +114,7 @@ public partial class SettingsPanel : VBoxContainer
         InitLanguages(settings);
         InitScreens(settings);
         InitSpriteSources(settings);
+        InitCrySources(settings);
     }
 
     private void InitLanguages(Settings settings)
@@ -168,6 +172,20 @@ public partial class SettingsPanel : VBoxContainer
             if (spriteCdn.Folder == settings.SpriteSource || (settings.SpriteSource == null && spriteCdn.Default))
             {
                 SpriteSourceBox.Select(i);
+            }
+        }
+    }
+
+    private void InitCrySources(Settings settings)
+    {
+        var cryCdns = SettingsManager.Instance.CryCdns.ToList();
+        for (int i = 0; i < cryCdns.Count; i++)
+        {
+            var cryCdn = cryCdns[i];
+            CrySourceBox.AddItem(TranslationServer.Translate(cryCdn.Name), i);
+            if (cryCdn.Folder == settings.CrySource || (settings.CrySource == null && cryCdn.Default))
+            {
+                CrySourceBox.Select(i);
             }
         }
     }
@@ -244,6 +262,16 @@ public partial class SettingsPanel : VBoxContainer
         if (spriteSourceIndex < spriteCdns.Count)
         {
             SettingsManager.Instance.Settings.SpriteSource = spriteCdns[spriteSourceIndex].Folder;
+        }
+    }
+
+    private void CrySourceBox_ItemSelected(long index)
+    {
+        var crySourceIndex = CrySourceBox.GetItemId((int)index);
+        var cryCdns = SettingsManager.Instance.CryCdns.ToList();
+        if (crySourceIndex < cryCdns.Count)
+        {
+            SettingsManager.Instance.Settings.CrySource = cryCdns[crySourceIndex].Folder;
         }
     }
 

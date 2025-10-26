@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ccu8y4ck348y0"]
+
+[ext_resource type="Script" uid="uid://bwa3cut1atkt0" path="res://models/resources/CriesCdn.cs" id="1_4b4b8"]
+
+[resource]
+script = ExtResource("1_4b4b8")
+Default = true
+Name = "CDN_CRIESAPI_LATEST"
+Folder = "criesapi-latest"
+Url = "https://github.com/PokeAPI/cries/raw/refs/heads/main/cries/pokemon/latest/{species}.ogg"

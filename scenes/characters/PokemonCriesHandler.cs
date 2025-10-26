@@ -1,25 +1,27 @@
 using Godot;
 using PKHeX.Core;
 using System;
+using System.IO;
 
 public partial class PokemonCriesHandler : Node
 {
     public AudioStreamPlayer AudioStreamPlayer { get; private set; }
 
+    private CriesCdn _crySource;
+
     public override void _Ready()
     {
         AudioStreamPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+
+        _crySource = SettingsManager.Instance.GetCryCDN();
     }
 
     // ---- UTILS ----
-    private string GetPokemonFilename(PKM pkm)
-        => $"{pkm.Species}";
-
     private string GetDownloadUrl(PKM pkm)
     {
-        var name = GetPokemonFilename(pkm);
-        // PokeAPI cries - OGG
-        return $"https://github.com/PokeAPI/cries/raw/refs/heads/main/cries/pokemon/latest/{name}.ogg";
+        var speciesNames = GameInfo.GetStrings("en").Species[pkm.Species].ToLower();
+
+        return _crySource.Url.Replace("{species}", pkm.Species.ToString()).Replace("{name}", speciesNames);
     }
 
     // ---- API ----
@@ -31,16 +33,17 @@ public partial class PokemonCriesHandler : Node
             return;
         }
 
-        var dirPath = "user://data/cries";
+        var dirPath = $"user://data/cries/{_crySource.Folder}";
         DirAccess.MakeDirRecursiveAbsolute(ProjectSettings.GlobalizePath(dirPath));
 
-        var filename = GetPokemonFilename(pkm);
-        var filePath = $"{dirPath}/{filename}.ogg";
+        var filename = $"{pkm.Species}";
+        var extension = Path.GetExtension(_crySource.Url).Substring(1);
+        var filePath = $"{dirPath}/{filename}.{extension}";
         var url = GetDownloadUrl(pkm);
 
         if (Godot.FileAccess.FileExists(filePath))
         {
-            var stream = LoadSoundFromFile(filePath);
+            var stream = LoadSoundFromFile(filePath, extension);
             if (stream != null)
             {
                 SetStream(stream);
@@ -48,7 +51,7 @@ public partial class PokemonCriesHandler : Node
             }
         }
 
-        StartDownload(filePath, url);
+        StartDownload(filePath, url, extension);
     }
 
     public void PlayCry()
@@ -60,7 +63,7 @@ public partial class PokemonCriesHandler : Node
     }
 
     // ---- DOWNLOAD ----
-    private void StartDownload(string filePath, string url)
+    private void StartDownload(string filePath, string url, string extension)
     {
         var req = new HttpRequest
         {
@@ -70,7 +73,7 @@ public partial class PokemonCriesHandler : Node
         req.RequestCompleted += (long result, long responseCode, string[] headers, byte[] body) =>
         {
             req.QueueFree();
-            Req_RequestCompleted(filePath, result, responseCode, headers, body);
+            Req_RequestCompleted(filePath, extension, result, responseCode, headers, body);
         };
 
         AddChild(req);
@@ -82,7 +85,7 @@ public partial class PokemonCriesHandler : Node
         }
     }
 
-    private void Req_RequestCompleted(string path, long result, long responseCode, string[] headers, byte[] body)
+    private void Req_RequestCompleted(string path, string extension, long result, long responseCode, string[] headers, byte[] body)
     {
         if (responseCode < 200 || responseCode >= 300 || body == null || body.Length == 0)
         {
@@ -101,7 +104,7 @@ public partial class PokemonCriesHandler : Node
             return;
         }
 
-        var stream = LoadSoundFromFile(path);
+        var stream = LoadSoundFromFile(path, extension);
         if (stream != null)
         {
             SetStream(stream);
@@ -117,8 +120,13 @@ public partial class PokemonCriesHandler : Node
         AudioStreamPlayer.Stream = stream;
     }
 
-    private AudioStream LoadSoundFromFile(string path)
+    private AudioStream LoadSoundFromFile(string path, string extension)
     {
+        if (extension.Contains("mp3"))
+        {
+            return AudioStreamMP3.LoadFromFile(path);
+        }
+
         return AudioStreamOggVorbis.LoadFromFile(path);
     }
 }
