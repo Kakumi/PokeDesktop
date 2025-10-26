@@ -54,3 +54,6 @@ CDN_SHOWDOWN_HOME,Showdown - Home,Showdown - Home
 CDN_CRIESAPI_LATEST,CriesAPI - Latest,CriesAPI - Récent
 CDN_CRIESAPI_LEGACY,CriesAPI - Legacy,CriesAPI - Legacy
 CDN_CRIES_SHOWDOWN,Showdown,Showdown
+CACHE_SOUND_DOWNLOAD_FAILED,"Download failed: result={0}, code={1}","Échec du téléchargement : résultat={0}, code={1}"
+CACHE_SOUND_SAVE_FAILED,Error saving file on disk message={0},Erreur lors de l'enregistrement du fichier sur le disque message={0}
+CACHE_SOUND_REQUEST_FAILED,Error while trying to get sound: {0} ({1}),Erreur lors de la tentative d'obtention du cri : {0} ({1})
