@@ -66,6 +66,8 @@ public partial class SettingsPanel : VBoxContainer
         CrySourceBox.ItemSelected += CrySourceBox_ItemSelected;
         MaxVisible.ValueChanged += MaxVisible_ValueChanged;
         PokemonScale.ValueChanged += PokemonScale_ValueChanged;
+        MinEmotionSeconds.ValueChanged += MinEmotionSeconds_ValueChanged;
+        MaxEmotionSeconds.ValueChanged += MaxEmotionSeconds_ValueChanged;
         SaveButton.Pressed += SaveButton_Pressed;
         ShowName.Pressed += ShowName_Pressed;
         SmartMove.Pressed += SmartMove_Pressed;
@@ -102,9 +104,6 @@ public partial class SettingsPanel : VBoxContainer
         CriesVolumeSlider.Value = settings.CriesVolume;
         MinEmotionSeconds.Value = settings.MinEmotionSeconds;
         MaxEmotionSeconds.Value = settings.MaxEmotionSeconds;
-
-        MaxEmotionSeconds.MinValue = settings.MinEmotionSeconds;
-        MinEmotionSeconds.MaxValue = settings.MaxEmotionSeconds;
 
         if (settings.SaveFilePath != null)
         {
@@ -278,6 +277,16 @@ public partial class SettingsPanel : VBoxContainer
     private void MaxVisible_ValueChanged(double value)
     {
         SettingsManager.Instance.Settings.MaxVisible = (int)value;
+    }
+
+    private void MaxEmotionSeconds_ValueChanged(double value)
+    {
+        SettingsManager.Instance.Settings.MaxEmotionSeconds = (int)value;
+    }
+
+    private void MinEmotionSeconds_ValueChanged(double value)
+    {
+        SettingsManager.Instance.Settings.MinEmotionSeconds = (int)value;
     }
 
     private void FileDialog_FileSelected(string path)
