@@ -28,6 +28,7 @@ Using your game save (compatible up to **Pokémon Scarlet/Violet**), your Pokém
 * [Features](#features)  
 	* [Languages](#languages)  
 	* [Movements](#movements)
+	* [Sounds](#sounds)
 	* [Show Player Party Pokémon](#show-player-party-pokémon)  
 	* [Emotions System](#emotions-system)  
 	* [Improve Friendship](#improve-friendship)  
@@ -62,6 +63,9 @@ By default, Pokémon use one of several available smart movement systems dependi
 * Dig – For ground-dwelling Pokémon (e.g. Diglett)
 
 You can disable smart movement entirely to make all Pokémon use simple walking instead.
+
+### <a name="sounds"></a>Sounds
+Pokémon can emit their cries when an emotion appears or when you click on them. These triggers are configurable.
 
 ### <a name="show-player-party-pokémon"></a>Show Player Party Pokémon
 Displays the Pokémon from the player's current save file directly on the desktop/taskbar. (Between 1 to 6 Pokémon)
@@ -100,6 +104,7 @@ You can currently choose between **animated Pokémon** (default) or a **pixel ar
 - [ ] Multi-monitor Pokémon roaming 
 - [ ] Expand emotion pool with more expressions  
 - [ ] Start the app on startup
+- [ ] Select which pokemons on the screen (between party and boxes)
 
 ---
 
